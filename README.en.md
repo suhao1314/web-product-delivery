@@ -1,14 +1,16 @@
 # Web Product Delivery
 
-**An agent skill for shipping websites and admin tools that hold up on the second click.** It covers interface design, motion, mobile performance, role-aware workflows, and acceptance testing.
+**Build your first website with an AI partner, from a rough idea to a published site.** Decide who the site serves, sketch the first screen, edit a working page, test the journey on a phone, and hand the site over to its owner.
 
-[中文](README.md) · [Quick start](#quick-start) · [Download offline demo](https://github.com/suhao1314/web-product-delivery/releases/download/v0.1.0/review-queue.html) · [MIT license](LICENSE)
+[中文](README.md) · [Install the skill](#quick-start) · [Download the starter](https://github.com/suhao1314/web-product-delivery/releases/download/v0.2.0/site-starter.zip) · [MIT license](LICENSE)
 
-A visitor opens a product, starts an inquiry, and goes back to check a detail. A reviewer handles the last application on a page and opens the next one. Those transitions reveal problems a screenshot rarely catches. This skill asks the development agent to walk the task, change the interface, and repeat the same journey under comparable conditions.
+## Your first lesson
 
-[![Desktop preview of the included review queue using fictional merchant applications](docs/review-queue.png)](examples/review-queue.html)
+1. Unzip the starter and open `index.html` in your browser. The two-page studio site runs offline without an account, domain, or build step.
+2. Change the headline and button color, refresh, then follow the featured coffee project into the inquiry form. Generate an editable brief.
+3. Use your own content to plan a small first release. Learn where a shared backend becomes necessary, how to publish, and how to recover a previous version. [Guided build](references/build-your-first-site.md) · [First-screen workshop](references/first-page-workshop.md) · [First launch](references/first-launch.md)
 
-*An actual screen from the offline demo. Open `examples/review-queue.html` after cloning. Narrow the window, select a campus, inspect an application with a missing optional item, then cancel or make a decision. Watch the queue count and your return position.*
+[![Home page of the included two-page studio starter](docs/first-site.png)](assets/site-starter/index.html)
 
 ## Four practical starting points
 
@@ -29,7 +31,7 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 
 Reopen the project and try this prompt in a host that supports explicit skill invocation.
 
-> Use $web-product-delivery to walk the mobile product inquiry flow. Open a product, start an inquiry, and return to compare another product. Find where the visitor loses context, fix it, and show the same journey again.
+> Use $web-product-delivery to teach me to build my first website. I photograph campus events and want organizers to see a project and send me a brief. This week I only want to try it on my computer. Help me build the first page and make one edit myself.
 
 The skill instructions, field guides, and demo interface are written in Chinese. The demo uses fictional data and runs locally in a browser. Node.js is optional. The included loading probe uses an existing Playwright and Chromium installation for controlled measurements. [Measurement guide](references/delivery.md)
 

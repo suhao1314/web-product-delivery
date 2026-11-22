@@ -25,4 +25,6 @@
 
 ## 补充资料
 
+首站教学将分阶段带做、同数据比较布局、实物验收与恢复进度用于普通浏览器。基础网页结构可继续学习 [MDN 的第一个网站](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)。部署练习参考 [Cloudflare Pages 直接上传](https://developers.cloudflare.com/pages/get-started/direct-upload/)和[版本回滚](https://developers.cloudflare.com/pages/configuration/rollbacks/)。
+
 [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 收录公开网站的第三方设计分析。[UI 参考取舍](ui-reference.md)列出品牌、工作台、内容参考；[便利性研究](convenience.md)收录 draw.io、Gutenberg、React-admin 与 GitHub 的原始例子及适用条件。此处只保留提炼后的设计与决策方法，不包含任何内部工程路径、测试产物或生产记录。

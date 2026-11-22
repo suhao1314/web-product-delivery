@@ -1,14 +1,16 @@
 # Web Product Delivery
 
-**教 AI 从用户手里验收一个网页。** 面向企业官网和管理后台的 Agent Skill，覆盖页面设计、交互动效、移动性能、操作权限与交付验收。
+**让 AI 带你从一句想法做出第一个网站。** 一起想清楚网站给谁用，画出第一屏，写出能打开的页面，在自己的手机上试用，再把成品发布给别人。
 
-[English](README.en.md) · [安装与使用](#安装与使用) · [下载离线演示](https://github.com/suhao1314/web-product-delivery/releases/download/v0.1.0/review-queue.html) · [MIT 许可](LICENSE)
+[English](README.en.md) · [安装技能](#安装与使用) · [下载建站练习包](https://github.com/suhao1314/web-product-delivery/releases/download/v0.2.0/site-starter.zip) · [MIT 许可](LICENSE)
 
-网站最容易露出问题的时刻，往往在第二步。访客看见了产品，却找不到带着产品名去咨询的入口。值班员审完一条申请，按返回，又得从第一页找起。这套技能让开发助手沿一条真实路径做设计，改完再用同样的设备、数据和操作走一遍。
+## 第一堂课
 
-[![审核队列桌面预览，使用虚构商家申请演示人工审核](docs/review-queue.png)](examples/review-queue.html)
+1. 解压上方练习包，双击 `index.html`。这是可在自己电脑上改的两页工作室网站，无需账号、域名或安装依赖。
+2. 和 AI 改一处主标题和按钮颜色，保存、刷新，再从“山野咖啡”作品点到咨询页，填一句需求并生成可编辑的摘要。
+3. 准备做自己的站时，告诉 AI 你的访客和目标。一起选首版范围、比较首屏、接入真实内容并验收。需要多人共享预约或团队登录处理时，技能会带你走有服务端的分支。[完整带做](references/build-your-first-site.md) · [第一屏设计](references/first-page-workshop.md) · [发布与接手](references/first-launch.md)
 
-*仓库自带的演示。克隆后打开 `examples/review-queue.html`，在窄屏选一个校区，打开一条缺可选材料的申请，先取消，再作决定。观察记录、待办数和返回位置。*
+[![微光工作室教学样站的首页实拍，可练习修改标题、选择作品并整理咨询需求](docs/first-site.png)](assets/site-starter/index.html)
 
 ## 它会怎样改一个页面
 
@@ -29,9 +31,9 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 
 重新打开项目，在支持显式调用的助手中输入：
 
-> 用 $web-product-delivery 走一遍手机上的产品咨询。从产品卡点进详情，填写需求，再返回去看另一个产品。先指出哪一步会丢信息，改好后用同一条路径演示结果。
+> 用 $web-product-delivery 带我从零做网站。我给校园社团拍照，希望社团看过作品后带着活动时间和拍摄需求来找我。本周先在自己的电脑上试。请带我做出第一页，让我亲手改一次，再走通咨询。
 
-只想先体验的读者可以直接下载上方的 HTML 文件，用浏览器打开。演示使用虚构记录，刷新会恢复初始队列。阅读技能和操作示例都不需要安装 Node.js。需要测首屏时，仓库另附可选的 Node.js 脚本，使用已有的 Playwright 与 Chromium；采样方式和指标口径见[性能与交付指南](references/delivery.md)。
+已有网站时也可以直接处理一个问题，例如“手机审核完返回，我总得从头找”。仓库附有独立的[审核队列演示下载](https://github.com/suhao1314/web-product-delivery/releases/download/v0.1.0/review-queue.html)和[界面实拍](docs/review-queue.png)。需要测首屏时，可选的 Node.js 脚本会使用已有的 Playwright 与 Chromium。[性能与交付指南](references/delivery.md)
 
 ## 按工作选入口
 

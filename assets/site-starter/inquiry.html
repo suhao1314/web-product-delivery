@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="写下项目方向，生成一份可编辑的本地摘要。">
+  <title>聊聊你的项目｜微光工作室</title>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到主要内容</a>
+  <header class="wrap head">
+    <a class="brand" href="index.html"><b>微</b> 微光工作室</a>
+    <nav aria-label="主导航">
+      <a href="index.html#services">服务</a>
+      <a href="index.html#work">项目示例</a>
+      <a href="inquiry.html" aria-current="page">聊聊项目</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap inquiry">
+    <a class="back" href="index.html">← 返回工作室首页</a>
+    <div class="columns">
+      <section>
+        <p class="eyebrow">咨询草稿 · 内容只在本页处理</p>
+        <h1>说说你想做什么。</h1>
+        <p class="lead">写下项目方向、想解决的问题和时间安排。摘要不会发送或保存。</p>
+
+        <form id="inquiry-form" hidden>
+          <label for="topic">你想聊的方向 <small>选填</small></label>
+          <select id="topic" name="topic">
+            <option value="">还没想好</option>
+            <option value="品牌官网">品牌官网</option>
+            <option value="产品展示页">产品展示页</option>
+            <option value="现有网站改版">现有网站改版</option>
+            <option value="山野咖啡品牌官网">山野咖啡品牌官网</option>
+            <option value="其他想法">其他想法</option>
+          </select>
+
+          <label for="need">现在最想解决什么？ <small>选填</small></label>
+          <textarea id="need" name="need" rows="4" placeholder="例如：新客户看不懂我们提供什么服务……"></textarea>
+
+          <label for="timing">大概的时间安排 <small>选填</small></label>
+          <select id="timing" name="timing">
+            <option value="">暂时不确定</option>
+            <option value="近期开始了解">近期开始了解</option>
+            <option value="一个月内">一个月内</option>
+            <option value="一到三个月">一到三个月</option>
+            <option value="时间比较灵活">时间比较灵活</option>
+          </select>
+
+          <button class="button" id="generate-button" type="submit">生成 / 重新生成摘要</button>
+          <p class="hint">这是本地草稿，不会联网、收集或自动发送。需要联系工作室时，请自行使用你确认过的联系方式。</p>
+        </form>
+      </section>
+
+      <aside aria-labelledby="preview-title">
+        <p class="eyebrow">本地摘要</p>
+        <h2 id="preview-title">项目摘要</h2>
+        <p class="preview-help">可以直接在下方编辑。若改过摘要，再重新生成时会先询问是否替换。</p>
+
+        <label for="summary">可编辑摘要</label>
+        <textarea id="summary" name="summary" rows="7" aria-live="polite">项目方向：________________
+目前想解决：________________
+时间安排：________________</textarea>
+
+        <button class="button light" id="copy-button" type="button" hidden>复制摘要</button>
+        <p id="copy-status" role="status" aria-live="polite">可直接手写上方摘要模板。启用脚本后可生成摘要并复制。</p>
+        <p class="hint">复制不可用时，点进摘要框，全选并手动复制。</p>
+        <a class="under" href="index.html">← 回首页继续了解</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <a class="brand" href="index.html"><b>微</b> 微光工作室</a>
+      <span>教学示例 · 不代表实际业务承诺</span>
+    </div>
+  </footer>
+</body>
+</html>

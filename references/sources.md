@@ -2,6 +2,8 @@
 
 筛选依据是能读到原始方法、能解释适用场景、能用具体任务验证。社区讨论用于发现候选和分歧；涉及实现、性能、可访问性或权限时回到作者仓库和官方说明。以下为原创归纳，没有引入第三方代码或安装包。更新技能时重新核对上游内容。
 
+页面功能与测试工具的作者文档放在对应决策旁边。需要决定是否值得做搜索、草稿或引导时，读[功能选型](feature-tools.md)。需要验证界面、接口或性能时，读[验收工具](verification-tools.md)。其中的咨询下拉框有本地浏览器对照结果，其余条目按用户任务选用，并在项目中单独验证。
+
 | 作者 / 材料 | 吸收的做法 | 采用边界 |
 | --- | --- | --- |
 | [Anthropic · frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) | 从受众、产品材料、字级和构图形成具体首屏方向 | 客户已认可的识别元素优先，设计偏好不变成跨项目禁令 |
@@ -15,6 +17,8 @@
 
 ## 从作者技能到页面决策
 
+包内已吸收视觉还原、组件复用、浏览器排错和独立请求时序的方法。设计稿按同尺寸的主操作与窄屏顺序对照，控件先用已有变体，验证时操作实际渲染的页面，读取顺序依据数据依赖判断。这些做法可沿用当前工程的技术栈。[shadcn/ui 组件目录](https://ui.shadcn.com/docs/components) · [Playwright 测试实践](https://playwright.dev/docs/best-practices) · [Vercel 的独立请求规则](https://github.com/vercel-labs/agent-skills/blob/main/skills/react-best-practices/rules/async-parallel.md)
+
 - 品牌首屏用真实产品内容选主视觉、字级和主要动作。页面可操作后，再查键盘焦点、表单错误和减少动态效果，并在浏览器复走任务。[Anthropic 设计技能](https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/frontend-design/SKILL.md) · [Vercel 审查技能](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) · [界面规则](https://github.com/vercel-labs/web-interface-guidelines/blob/434b7f91364665f2f733b310ec54809bf8f37937/command.md)
 - Emil Kowalski 的方法先识别控件任务、检查项目依赖，再推荐合适的库；动效参考将可打断性、触发频率和运动用途纳入选择。[组件选型](https://github.com/emilkowalski/skills/blob/main/skills/pick-ui-library/SKILL.md) · [动效取舍](https://github.com/emilkowalski/skills/blob/main/skills/find-animation-opportunities/SKILL.md) · [本技能页面决策表](page-components.md)
 
@@ -27,4 +31,4 @@
 
 首站教学将分阶段带做、同数据比较布局、实物验收与恢复进度用于普通浏览器。基础网页结构可继续学习 [MDN 的第一个网站](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)。部署练习参考 [Cloudflare Pages 直接上传](https://developers.cloudflare.com/pages/get-started/direct-upload/)和[版本回滚](https://developers.cloudflare.com/pages/configuration/rollbacks/)。
 
-[VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 收录公开网站的第三方设计分析。[UI 参考取舍](ui-reference.md)列出品牌、工作台、内容参考；[便利性研究](convenience.md)收录 draw.io、Gutenberg、React-admin 与 GitHub 的原始例子及适用条件。此处只保留提炼后的设计与决策方法，不包含任何内部工程路径、测试产物或生产记录。
+[VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 收录公开网站的第三方设计分析。[UI 参考取舍](ui-reference.md)列出 Stripe、IBM、Linear、Notion 四份分析的 GitHub 固定版本；[便利性研究](convenience.md)收录 draw.io、Gutenberg、React-admin 与 GitHub 的原始例子及适用条件。此处只保留提炼后的设计与决策方法，不包含任何内部工程路径、测试产物或生产记录。

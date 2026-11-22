@@ -1,47 +1,44 @@
 # Web Product Delivery
 
-**Build your first website with an AI partner, from a rough idea to a published site.** Decide who the site serves, sketch the first screen, edit a working page, test the journey on a phone, and hand the site over to its owner.
+**Build a first website or improve an existing admin app with one AI skill.** Describe who uses the product, on which device, and what they are trying to do. Invoke `$web-product-delivery` and the assistant picks methods from this package and works with your existing stack. The guides and demo interfaces are in Chinese.
 
-[中文](README.md) · [Install the skill](#quick-start) · [Download the starter](https://github.com/suhao1314/web-product-delivery/releases/download/v0.2.0/site-starter.zip) · [MIT license](LICENSE)
+[Build your first website](#build-your-first-website) · [Improve an existing admin app](#improve-an-existing-admin-app) · [Download the skill](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/web-product-delivery.zip) · [中文](README.md)
 
-## Your first lesson
+## Install in your project
 
-1. Unzip the starter and open `index.html` in your browser. The two-page studio site runs offline without an account, domain, or build step.
-2. Change the headline and button color, refresh, then follow the featured coffee project into the inquiry form. Generate an editable brief.
-3. Use your own content to plan a small first release. Learn where a shared backend becomes necessary, how to publish, and how to recover a previous version. [Guided build](references/build-your-first-site.md) · [First-screen workshop](references/first-page-workshop.md) · [First launch](references/first-launch.md)
-
-[![Home page of the included two-page studio starter](docs/first-site.png)](assets/site-starter/index.html)
-
-## Four practical starting points
-
-| Task | Design decision | Acceptance check |
-| --- | --- | --- |
-| Give a landing page depth on mobile | Keep the title and inquiry action usable while distant clouds and nearby dust move at different speeds. | Record idle motion, a local touch gesture, release, and normal vertical scrolling. Check reduced motion. [Motion](references/motion.md) |
-| Recover an interrupted inquiry | Preserve the inputs that cost effort to recreate. Show where the draft lives and what copying an inquiry does. | Leave mid-sentence, return, recover the text, and try the copy-failure path. [Drafts and recovery](references/convenience.md) |
-| Review a queue on a phone | Keep the active scope, filters, and reading position. Put the decision and its evidence together. | Cross a page boundary, close the detail view, and locate the last record and its action. [Admin workflows](references/admin.md) |
-| Help the only owner resolve an exception | Give the owner a manual decision for missing optional material and a reconciliation path for an unknown payment outcome. | Check cancellation, duplicate submission, and the result after refresh. [Ownership and exceptions](references/admin-ownership.md) |
-
-## Quick start
-
-From your project root, run the following command for assistants that discover skills under `.agents/skills/`. For other hosts, place the same directory in the host's skill folder.
+For an assistant that discovers project skills in `.agents/skills/`, run this once from the project's root:
 
 ```sh
 git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/web-product-delivery
 ```
 
-Reopen the project and try this prompt in a host that supports explicit skill invocation.
+You can also unzip the [complete skill](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/web-product-delivery.zip) and place its `web-product-delivery` folder in your assistant's skill directory. Keep `SKILL.md`, `references/`, and `assets/` together, then reopen the project. A file-aware assistant can also read [SKILL.md](SKILL.md) directly.
 
-> Use $web-product-delivery to teach me to build my first website. I photograph campus events and want organizers to see a project and send me a brief. This week I only want to try it on my computer. Help me build the first page and make one edit myself.
+## Build your first website
 
-The skill instructions, field guides, and demo interface are written in Chinese. The demo uses fictional data and runs locally in a browser. Node.js is optional. The included loading probe uses an existing Playwright and Chromium installation for controlled measurements. [Measurement guide](references/delivery.md)
+> Use $web-product-delivery to help me build my first site. I photograph campus events and want organizers to see my work and ask about a shoot with their date and requirements. Let's try it locally this week. Help me build a portfolio and an inquiry page, edit the headline myself, and complete one inquiry.
 
-## Field guides
+1. Pick one representative project and decide how an interested visitor will reach you. Build that path before expanding the site.
+2. For a working example, unzip the [two-page starter](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/site-starter.zip) and open `index.html`. Edit the headline and refresh. Follow the featured coffee project to the inquiry page, enter a request, and generate an editable brief. The brief stays on the page until you copy it.
+3. Replace the sample work and contact details, test at phone width, and connect a real delivery channel if the studio needs to receive inquiries. When ready, check the preview, public URL, and recovery steps. [First-site guide](references/build-your-first-site.md) · [Starter design decisions](assets/site-starter/DESIGN.md) · [First launch](references/first-launch.md)
 
-- **Plan a site.** Organize a home page, product catalog, course page, and inquiry around the visitor's next decision. [Pages and brand](references/pages.md)
-- **Choose components.** Start with the project's existing UI stack, then try one component with realistic content and touch input. [Component selection](references/page-components.md)
-- **Improve an existing flow.** Keep a baseline, fix the most expensive step, and repeat the task with the same fixtures. [Journey review](references/journey.md)
-- **Report what ran.** Distinguish browser observations, simulated responses, device checks, and a production readback. [Quality checks](references/quality-gates.md)
+[![The portfolio home page in the two-page exercise](docs/first-site.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/site-starter.zip)
 
-For feedback, include the task, device and input method, steps, and expected outcome. Use fictional records in public issues.
+## Improve an existing admin app
 
-The original skill, documentation, scripts, and demo are available under the MIT License. Keep the copyright and permission notice when redistributing copies. External references belong to their respective authors. [License](LICENSE) · [Sources](references/sources.md)
+> Use $web-product-delivery on this admin app. On a phone, reviewers select a campus, open a merchant application, and lose their place when they return. Reproduce it locally with test records, fix it in the existing components, and show the same actions before and after.
+
+1. Open the maintained project and identify the usual entry point, reviewer role, and failing step. Repeat the task with a fixed viewport and filters.
+2. Restore the selected campus and focus when the reviewer returns. Check that switching campus clears the previous selection. Use separate test records to verify scope. [Admin workflows](references/admin.md) · [Drafts and recovery](references/convenience.md)
+3. Try the [offline review demo](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/review-queue.html). Select 松林校区, open a record, and choose 返回申请列表（取消） to return. Check the active filter and focused record. Reopen a record and confirm a decision to continue reviewing. The demo uses fictional records and resets on refresh. Validate authorization and persistence separately in the actual application's test environment. [Ownership and exceptions](references/admin-ownership.md) · [Journey review](references/journey.md)
+
+[![A phone-sized merchant review queue with campus filters](docs/review-queue.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/review-queue.html)
+
+## Other tasks
+
+- Bring a portfolio, product page, and inquiry form into the same visual system. [Design references](references/ui-reference.md)
+- Diagnose slow first visits and touch gestures separately. [Motion](references/motion.md) · [Performance](references/delivery.md)
+- Decide whether search, drafts, and onboarding solve an observed problem. [Feature selection](references/feature-tools.md)
+- Investigate a control that looks the same but no longer works with a keyboard or accessible name. [Verification tools](references/verification-tools.md)
+
+Both demos run locally without an account or Node.js. When reporting an issue, include the device, steps, and expected result using fictional data. The original skill and examples are distributed under the MIT License. [License](LICENSE) · [Research sources](references/sources.md)

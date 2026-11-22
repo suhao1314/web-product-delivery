@@ -5,7 +5,7 @@
 ## 去哪里找
 
 1. 查当前页面的依赖清单、现有共用组件、相邻页面的导入和样式变量。优先复用带有本项目校区范围、焦点恢复或表单错误处理的组件。项目只有静态 HTML 时，链接、表单、分组、展开说明先用原生元素。
-2. 到同栈官方组件页找具体交互，点一次示例，再看 API 和项目锁定版本。示例后台已使用 Vue 3 和 Element Plus，表格、抽屉从这里找。需要自定外观且现有 Vue 控件办不到时，再评估无样式控件。React 项目已有 shadcn/ui 时，查项目配置选对应基础库示例。只为借一个页面的布局时，直接用已有控件表达。[Element Plus 表格](https://element-plus.org/en-US/component/table.html) · [Reka UI 可搜索选择器](https://reka-ui.com/docs/components/combobox) · [shadcn/ui 项目与组件检索](https://ui.shadcn.com/docs/skills)
+2. 找到同栈的控件后，先看相邻页面怎样用它。主操作、次操作、禁用、错误与焦点沿用已有变体和颜色变量。例如 Vue 后台可组合已有表格和详情抽屉，已有 shadcn/ui 的 React 工程可复用本地按钮和表单组件，静态官网可以直接用原生表单。现有控件缺能力或版本用法不明时，再查具体组件文档。[Element Plus 表格](https://element-plus.org/en-US/component/table.html) · [Reka UI 可搜索选择器](https://reka-ui.com/docs/components/combobox) · [shadcn/ui 组件目录](https://ui.shadcn.com/docs/components)
 3. 需要引入依赖时，用一个实际任务试候选。给出首选、它补上的能力、手机键盘或触控的实测表现，以及新增资源与维护成本。复制代码或素材前核许可，浏览灵感站截取视觉规律时回到作者的源码或正式文档。用上游的思路改好本项目就够了。[Emil Kowalski 的组件选型方法](https://github.com/emilkowalski/skills/blob/main/skills/pick-ui-library/SKILL.md)
 
 ## 选一个和当前任务最接近的页面

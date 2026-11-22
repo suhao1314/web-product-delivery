@@ -1,0 +1,28 @@
+# 调研与取舍
+
+筛选依据是能读到原始方法、能解释适用场景、能用具体任务验证。社区讨论用于发现候选和分歧；涉及实现、性能、可访问性或权限时回到作者仓库和官方说明。以下为原创归纳，没有引入第三方代码或安装包。更新技能时重新核对上游内容。
+
+| 作者 / 材料 | 吸收的做法 | 采用边界 |
+| --- | --- | --- |
+| [Anthropic · frontend-design](https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md) | 从受众、产品材料、字级和构图形成具体首屏方向 | 客户已认可的识别元素优先，设计偏好不变成跨项目禁令 |
+| [Paul Bakaus · Impeccable](https://github.com/pbakaus/impeccable/blob/main/skill/reference/operate.md) | 高频任务采用熟悉控件、紧凑信息结构、稳定状态切换 | 官网可有辨识体验；表格与设置页重视操作连续性 |
+| [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/src/ui-ux-pro-max/templates/base/skill-content.md) | 按产品、风格、图表、交互问题分别找参考，再落到设计系统 | 字体须检查中文覆盖、许可、字重与首屏体积 |
+| [Vercel · Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md) | 将无障碍名称、焦点、表单、触摸和减少动效纳入审查 | 自动检查不能证明用户完成任务，须补浏览器走查 |
+| [Anthropic · webapp-testing](https://github.com/anthropics/skills/blob/main/skills/webapp-testing/SKILL.md) 与 [Playwright 实践](https://playwright.dev/docs/best-practices) | 先查看渲染页面，再按用户可见控件操作和断言 | 复用已有测试栈，等待业务就绪信号 |
+| [Cloudflare · web-perf](https://github.com/cloudflare/skills/blob/main/skills/web-perf/SKILL.md) 与 [Web Vitals](https://web.dev/articles/vitals) | 用网络、渲染轨迹和输入时间定位慢点 | 同条件实验与真实访问分开；单次本机数字不能代表全部用户 |
+| [W3C · Dialog Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) | 把打开、键盘遍历、关闭和返焦写成可操作用例 | 复杂表单须结合打开时阅读顺序决定焦点 |
+| [OWASP · Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) 与 [Logging](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html) | 角色、对象归属和状态在服务端判断，审计记录最少必要信息 | UI 隐藏入口只改善操作体验，授权逻辑用隔离数据验证 |
+
+## 从作者技能到页面决策
+
+- 品牌首屏用真实产品内容选主视觉、字级和主要动作。页面可操作后，再查键盘焦点、表单错误和减少动态效果，并在浏览器复走任务。[Anthropic 设计技能](https://github.com/anthropics/skills/blob/ca45fc496a3436251f191354091d557da31c15b5/skills/frontend-design/SKILL.md) · [Vercel 审查技能](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) · [界面规则](https://github.com/vercel-labs/web-interface-guidelines/blob/434b7f91364665f2f733b310ec54809bf8f37937/command.md)
+- Emil Kowalski 的方法先识别控件任务、检查项目依赖，再推荐合适的库；动效参考将可打断性、触发频率和运动用途纳入选择。[组件选型](https://github.com/emilkowalski/skills/blob/main/skills/pick-ui-library/SKILL.md) · [动效取舍](https://github.com/emilkowalski/skills/blob/main/skills/find-animation-opportunities/SKILL.md) · [本技能页面决策表](page-components.md)
+
+## 社区线索
+
+- [Reddit · 前端设计技能改写与盲评](https://www.reddit.com/r/ClaudeAI/comments/1q7rnpk/i_rewrote_anthropics_frontenddesign_skill_and/)：可借用相同输入做盲比；模型偏好不能证明访客能成功咨询或员工能正确审核。
+- [Hacker News · StyleSeed](https://news.ycombinator.com/item?id=48920888)：设计规则与视觉参考可分别研究。构图反馈用实际素材做代表页；跨页不一致先整理控件与排版规则。
+
+## 补充资料
+
+[VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 收录公开网站的第三方设计分析。[UI 参考取舍](ui-reference.md)列出品牌、工作台、内容参考；[便利性研究](convenience.md)收录 draw.io、Gutenberg、React-admin 与 GitHub 的原始例子及适用条件。此处只保留提炼后的设计与决策方法，不包含任何内部工程路径、测试产物或生产记录。

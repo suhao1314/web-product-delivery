@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>商家申请 · 连续审核示例</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font: 15px/1.45 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "PingFang SC", "Microsoft YaHei", sans-serif;
+      --ink: #17231f;
+      --muted: #74817b;
+      --line: #e5eae6;
+      --paper: #f5f7f4;
+      --green: #176b50;
+      --green-soft: #e8f4ee;
+      --amber: #97631a;
+      --amber-soft: #fff5df;
+      --shadow: 0 28px 90px #16362920;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: radial-gradient(ellipse at 50% 0, #e9f0e9 0, transparent 48%), var(--paper);
+      color: var(--ink);
+    }
+    button, input { font: inherit; }
+    button { color: inherit; cursor: pointer; }
+    button:focus-visible, input:focus-visible {
+      outline: 3px solid #55a983;
+      outline-offset: 3px;
+    }
+    button:disabled { cursor: not-allowed; opacity: .48; }
+
+    .layout { max-width: 1120px; margin: auto; padding: 36px 24px 50px; }
+    .mast { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-size: 14px; font-weight: 700; }
+    .brand-mark {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--green);
+      color: white;
+      font-size: 17px;
+    }
+    .demo-tag {
+      padding: 6px 11px;
+      border: 1px solid #cddbd2;
+      border-radius: 999px;
+      background: #ffffffad;
+      color: #557063;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    .intro { margin-bottom: 25px; }
+    .eyebrow, .side-kicker {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .intro h1 { margin: 9px 0 8px; font-size: clamp(24px, 4vw, 36px); letter-spacing: -.04em; line-height: 1.15; }
+    .intro p, .side > p { margin: 0; color: var(--muted); font-size: 14px; }
+    .stage { display: grid; grid-template-columns: minmax(360px, 430px) 1fr; gap: 36px; align-items: center; }
+
+    .phone {
+      width: 100%;
+      max-width: 430px;
+      margin: auto;
+      padding: 10px;
+      border: 1px solid #e9eeea;
+      border-radius: 34px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .screen { min-height: 700px; overflow: hidden; border: 1px solid #f2f4f1; border-radius: 26px; background: #fff; }
+    .statusbar { display: flex; height: 29px; justify-content: space-between; padding: 6px 20px 0; font-size: 11px; font-weight: 700; }
+    .apphead { padding: 13px 19px 14px; border-bottom: 1px solid var(--line); }
+    .apphead-row { display: flex; align-items: center; justify-content: space-between; }
+    .apphead h2 { margin: 0; font-size: 20px; letter-spacing: -.03em; }
+    .avatar { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 50%; background: #e7f1eb; color: var(--green); font-size: 12px; font-weight: 800; }
+    .queue-meta { margin-top: 5px; color: var(--muted); font-size: 12px; }
+    .receipt:not(:empty) { margin: 8px 0 0; color: var(--green); font-size: 12px; }
+    .search:focus-within { outline: 2px solid var(--green); outline-offset: 2px; }
+    .tools { padding: 13px 16px 10px; border-bottom: 1px solid var(--line); background: #fbfcfb; }
+    .search { display: flex; height: 39px; align-items: center; gap: 8px; padding: 0 11px; border: 1px solid var(--line); border-radius: 12px; background: white; color: #8a958f; }
+    .search input { width: 100%; min-width: 0; border: 0; outline: 0 !important; background: transparent; color: var(--ink); font-size: 13px; }
+    .search input::placeholder { color: #9aa59e; }
+    .filters { display: flex; gap: 7px; overflow-x: auto; padding: 10px 1px 2px; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .chip { padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: #69756e; font-size: 11px; white-space: nowrap; }
+    .chip[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: #fff; }
+    .queue-list { max-height: 458px; overflow: auto; padding: 7px 11px; }
+    .case { display: flex; width: 100%; align-items: flex-start; gap: 10px; padding: 12px 10px; border: 1px solid transparent; border-radius: 15px; background: #fff; text-align: left; }
+    .case:hover, .case[aria-current="true"] { background: #eff7f1; }
+    .case[aria-current="true"] { border-color: #d5e8dc; }
+    .case-icon { display: grid; width: 37px; height: 37px; flex: none; place-items: center; border-radius: 12px; background: #f1eee8; color: #766c59; font-size: 15px; font-weight: 700; }
+    .case:nth-child(3n) .case-icon { background: #e8f2f7; color: #4a7182; }
+    .case:nth-child(3n + 1) .case-icon { background: #f7eee7; color: #9c6946; }
+    .case-main { min-width: 0; flex: 1; }
+    .case-title { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; font-weight: 750; }
+    .case-title span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .case-sub { margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .case-foot { display: flex; justify-content: space-between; margin-top: 8px; color: #859189; font-size: 10px; }
+    .badge { padding: 3px 7px; border-radius: 999px; background: var(--amber-soft); color: var(--amber); font-size: 10px; white-space: nowrap; }
+    .badge.ready { background: var(--green-soft); color: var(--green); }
+    .empty { padding: 35px 15px; color: var(--muted); font-size: 13px; text-align: center; }
+
+    .screen-detail { display: none; padding: 16px 17px 22px; }
+    .back { padding: 5px 0; border: 0; background: transparent; color: var(--green); font-size: 12px; font-weight: 700; }
+    .detail-title { margin: 12px 0 2px; font-size: 20px; letter-spacing: -.03em; }
+    .detail-sub { color: var(--muted); font-size: 12px; }
+    .location { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; padding: 11px 12px; border-radius: 13px; background: #f5f7f4; font-size: 12px; }
+    .location small { display: block; margin-top: 2px; color: var(--muted); }
+    .map-pin { color: var(--green); font-size: 17px; }
+    .section-label { margin: 18px 0 8px; color: #839087; font-size: 10px; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .doc { display: flex; align-items: center; gap: 10px; margin-top: 7px; padding: 10px 11px; border: 1px solid var(--line); border-radius: 12px; }
+    .doc-icon { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 9px; background: #f1f4f1; color: #69776e; }
+    .doc-name { font-size: 12px; font-weight: 700; }
+    .doc-state { margin-top: 2px; color: var(--muted); font-size: 10px; }
+    .doc-state.missing { color: var(--amber); }
+    .decision-box { margin-top: 14px; padding: 12px; border: 1px solid #f0dfbd; border-radius: 14px; background: #fffbf2; }
+    .decision-box legend { padding: 0 4px; font-size: 12px; font-weight: 750; }
+    .decision-box p { margin: 1px 0 8px; color: #786a4d; font-size: 11px; }
+    .choice { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; color: #625538; font-size: 11px; }
+    .choice input { margin-top: 2px; accent-color: var(--green); }
+    .primary { width: 100%; margin-top: 11px; padding: 12px; border: 0; border-radius: 12px; background: var(--green); color: #fff; font-size: 13px; font-weight: 750; }
+    .primary:hover:not(:disabled) { background: #10543e; }
+    .secondary { width: 100%; margin-top: 7px; padding: 10px; border: 1px solid var(--line); border-radius: 11px; background: white; font-size: 12px; }
+    .disabled-note { margin-top: 6px; color: #9a8b69; font-size: 10px; text-align: center; }
+    .result { margin-top: 13px; padding: 12px; border-radius: 12px; background: #eaf5ee; color: #246043; font-size: 12px; }
+    .result b { display: block; margin-bottom: 3px; }
+
+    .side { padding: 12px 10px 12px 0; }
+    .side h2 { max-width: 440px; margin: 9px 0 7px; font-size: 25px; letter-spacing: -.04em; }
+    .side > p { max-width: 450px; margin-bottom: 23px; font-size: 13px; }
+    .principles { display: grid; gap: 10px; }
+    .principle { display: grid; max-width: 470px; grid-template-columns: 31px 1fr; gap: 11px; padding: 13px; border: 1px solid #e3e9e4; border-radius: 15px; background: #ffffffa8; }
+    .num { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 9px; background: #eaf3ed; color: var(--green); font-size: 11px; font-weight: 800; }
+    .principle strong { font-size: 12px; }
+    .principle p { margin: 3px 0 0; color: var(--muted); font-size: 11px; line-height: 1.55; }
+    .footnote { max-width: 470px; margin-top: 21px; padding-top: 14px; border-top: 1px solid #e1e8e2; color: #8b9690; font-size: 10px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+    @media (max-width: 800px) {
+      .layout { padding: 22px 15px 34px; }
+      .mast { margin-bottom: 19px; }
+      .intro { margin-bottom: 20px; }
+      .stage { grid-template-columns: 1fr; gap: 25px; }
+      .phone { max-width: 420px; }
+      .side { padding: 0 4px; }
+      .side h2 { font-size: 22px; }
+      .principles { grid-template-columns: 1fr 1fr; }
+      .principle, .footnote { max-width: none; }
+    }
+    @media (max-width: 480px) {
+      .layout { padding: 14px 10px 26px; }
+      .demo-tag { padding: 5px 8px; font-size: 9px; }
+      .intro p { font-size: 12px; }
+      .phone { padding: 7px; border-radius: 29px; }
+      .screen { min-height: 670px; }
+      .queue-list { max-height: 430px; }
+      .principles { grid-template-columns: 1fr; }
+      .side { padding: 0 7px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="layout">
+    <header class="mast">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">禾</span>禾集 · 商家服务台</div>
+      <span class="demo-tag">OFFLINE DEMO · 全部为虚构数据</span>
+    </header>
+
+    <section class="intro" aria-labelledby="page-title">
+      <div class="eyebrow">Review queue / 01</div>
+      <h1 id="page-title">让连续审核少一点重找</h1>
+      <p>模拟一位负责人的待办台：保留筛选和位置，逐条查看，再对申请作人工决定。</p>
+    </section>
+
+    <div class="stage">
+      <section class="phone" aria-label="商家申请审核界面">
+        <div class="screen">
+          <div class="statusbar"><span>9:41</span><span aria-hidden="true">● ◔ ▰</span></div>
+          <header class="apphead">
+            <div class="apphead-row">
+              <h2 id="view-title">申请审核</h2>
+              <span class="avatar" aria-label="模拟负责人：林予安">林</span>
+            </div>
+            <div class="queue-meta" id="queue-meta">待审核 · 6 条示例申请</div>
+            <div class="receipt" id="receipt" role="status"></div>
+          </header>
+
+          <section class="tools" aria-label="队列筛选">
+            <label class="search">
+              <span aria-hidden="true">⌕</span>
+              <span class="sr-only">搜索商家名称或编号</span>
+              <input id="search" type="search" placeholder="搜索商家 / 申请编号" autocomplete="off">
+            </label>
+            <div class="filters" role="group" aria-label="按虚构校区筛选">
+              <button class="chip" type="button" data-campus="全部" aria-pressed="true">全部校区</button>
+              <button class="chip" type="button" data-campus="松林校区" aria-pressed="false">松林校区</button>
+              <button class="chip" type="button" data-campus="青禾校区" aria-pressed="false">青禾校区</button>
+              <button class="chip" type="button" data-campus="云杉校区" aria-pressed="false">云杉校区</button>
+            </div>
+          </section>
+
+          <div class="queue-list" id="queue-list" aria-label="申请列表"></div>
+          <section class="screen-detail" id="detail" aria-labelledby="detail-title" aria-live="polite"></section>
+        </div>
+      </section>
+
+      <aside class="side">
+        <div class="side-kicker">Small interaction, clear responsibility</div>
+        <h2>缺一份可选材料，决定仍由负责人来做。</h2>
+        <p>列表和详情像一张连续工作的桌面。每次只处理当前申请，理由留在当前屏幕，负责人能看见什么会生效。</p>
+        <div class="principles">
+          <article class="principle">
+            <span class="num">01</span>
+            <div><strong>返回时保留筛选与位置</strong><p>搜索词、校区、列表滚动位置和当前记录都留在页面状态里。</p></div>
+          </article>
+          <article class="principle">
+            <span class="num">02</span>
+            <div><strong>浏览或取消都是零写入</strong><p>查看详情不改变状态。返回列表等同取消，只有明确提交才记录决定。</p></div>
+          </article>
+          <article class="principle">
+            <span class="num">03</span>
+            <div><strong>一次决定，只生效一次</strong><p>提交后当前记录退出待审核队列，并自动打开筛选结果中的下一条。</p></div>
+          </article>
+          <article class="principle">
+            <span class="num">04</span>
+            <div><strong>本地模拟唯一负责人</strong><p>负责人：林予安（演示角色）。生产系统还须由服务端核验角色与防重。</p></div>
+          </article>
+        </div>
+        <div class="footnote">演示边界：只有前端交互，没有接口、账号、真实商家、持久化或权限校验。校区名和记录均为虚构。直接用桌面或手机浏览器打开本 HTML。</div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const initialCases = [
+        { id: "HJ-2048", name: "青禾饭团", campus: "松林校区", address: "松林校区 · 松风路 18 号", time: "09:12", missing: "当季菜单展示图", applicant: "周小满", type: "餐饮", docs: ["营业执照", "负责人身份证明"] },
+        { id: "HJ-2047", name: "半日花房", campus: "青禾校区", address: "青禾校区 · 梧桐街 6 号", time: "08:56", missing: "门店外立面照片", applicant: "许知夏", type: "零售", docs: ["营业执照", "经营场所照片"] },
+        { id: "HJ-2046", name: "纸间文具", campus: "松林校区", address: "松林校区 · 学府路 31 号", time: "昨天 17:40", missing: "", applicant: "陈同学", type: "零售", docs: ["营业执照", "门店照片", "负责人身份证明"] },
+        { id: "HJ-2045", name: "慢慢咖啡", campus: "云杉校区", address: "云杉校区 · 云杉巷 2 号", time: "昨天 16:18", missing: "新品展示图", applicant: "宋禾", type: "餐饮", docs: ["营业执照", "门店照片"] },
+        { id: "HJ-2044", name: "柚子修补铺", campus: "青禾校区", address: "青禾校区 · 青石街 12 号", time: "昨天 14:09", missing: "", applicant: "沈一禾", type: "生活服务", docs: ["营业执照", "负责人身份证明"] },
+        { id: "HJ-2043", name: "晴天洗衣", campus: "云杉校区", address: "云杉校区 · 榆树路 9 号", time: "昨天 11:32", missing: "经营场所照片", applicant: "赵安安", type: "生活服务", docs: ["营业执照", "负责人身份证明"] }
+      ];
+
+      const records = initialCases.map(record => ({ ...record, decision: null }));
+      const state = {
+        campus: "全部",
+        query: "",
+        selectedId: null,
+        scrollTop: 0,
+        filteredIds: [],
+        openIndex: -1
+      };
+
+      const list = document.querySelector("#queue-list");
+      const detail = document.querySelector("#detail");
+      const search = document.querySelector("#search");
+      const tools = document.querySelector(".tools");
+      const queueMeta = document.querySelector("#queue-meta");
+      const viewTitle = document.querySelector("#view-title");
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, character => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        })[character]);
+      }
+
+      function filteredRecords() {
+        const query = state.query.trim().toLocaleLowerCase();
+        return records.filter(record => {
+          const matchesCampus = state.campus === "全部" || record.campus === state.campus;
+          const matchesQuery = !query || `${record.name}${record.id}`.toLocaleLowerCase().includes(query);
+          return !record.decision && matchesCampus && matchesQuery;
+        });
+      }
+
+      function renderList({ restoreFocusId = null } = {}) {
+        const visible = filteredRecords();
+        state.filteredIds = visible.map(record => record.id);
+        queueMeta.textContent = `当前条件 · 待审核 ${visible.length} 条`;
+
+        if (visible.length === 0) {
+          list.innerHTML = '<div class="empty">没有符合条件的申请<br>试试切换校区或清空搜索词</div>';
+        } else {
+          list.innerHTML = visible.map(record => `
+            <button class="case" type="button" data-id="${record.id}"
+              aria-current="${record.id === state.selectedId}">
+              <span class="case-icon" aria-hidden="true">${escapeHtml(record.name.slice(0, 1))}</span>
+              <span class="case-main">
+                <span class="case-title">
+                  <span>${escapeHtml(record.name)}</span>
+                  <span class="badge ${record.missing ? "" : "ready"}">${record.missing ? "缺可选材料" : "材料齐全"}</span>
+                </span>
+                <span class="case-sub">${escapeHtml(record.id)} · ${escapeHtml(record.campus)} · ${escapeHtml(record.type)}</span>
+                <span class="case-foot"><span>${escapeHtml(record.applicant)} 提交</span><span>${escapeHtml(record.time)}</span></span>
+              </span>
+            </button>
+          `).join("");
+        }
+
+        list.scrollTop = state.scrollTop;
+        if (restoreFocusId) {
+          const focusTarget = list.querySelector(`[data-id="${restoreFocusId}"]`);
+          if (focusTarget) focusTarget.focus();
+          else search.focus();
+        }
+      }
+
+      function decisionOptions(record) {
+        if (record.missing) {
+          return [
+            { value: "allow", label: "允许继续：后续核验时补齐" },
+            { value: "request", label: "请申请人补齐后再处理" }
+          ];
+        }
+        return [
+          { value: "approve", label: "资料符合要求：同意进入后续流程" },
+          { value: "revise", label: "资料需要调整：退回申请人修改" }
+        ];
+      }
+
+      function openRecord(id) {
+        const visibleIds = state.filteredIds;
+        const index = visibleIds.indexOf(id);
+        const record = records.find(item => item.id === id);
+        if (!record || index < 0) return;
+
+        if (!list.hidden) state.scrollTop = list.scrollTop;
+        state.selectedId = id;
+        state.openIndex = index;
+        list.hidden = true;
+        tools.hidden = true;
+        detail.style.display = "block";
+        viewTitle.textContent = "申请详情";
+
+        const submittedDocs = record.docs.map(name => `
+          <div class="doc">
+            <span class="doc-icon" aria-hidden="true">▤</span>
+            <div><div class="doc-name">${escapeHtml(name)}</div><div class="doc-state">已提交 · 示例文件</div></div>
+          </div>
+        `).join("");
+        const missingDoc = record.missing ? `
+          <div class="section-label">补充材料</div>
+          <div class="doc">
+            <span class="doc-icon" aria-hidden="true">＋</span>
+            <div><div class="doc-name">${escapeHtml(record.missing)}</div><div class="doc-state missing">未提交 · 可选补充材料</div></div>
+          </div>
+        ` : "";
+        const options = decisionOptions(record);
+        const decisionInputs = options.map(option => `
+          <label class="choice">
+            <input type="radio" name="decision" value="${option.value}">
+            <span>${escapeHtml(option.label)}</span>
+          </label>
+        `).join("");
+
+        detail.innerHTML = `
+          <button class="back" id="cancel" type="button">← 返回申请列表（取消）</button>
+          <h3 class="detail-title" id="detail-title">${escapeHtml(record.name)}</h3>
+          <div class="detail-sub">${escapeHtml(record.id)} · ${escapeHtml(record.type)} · ${escapeHtml(record.campus)}</div>
+          <div class="location"><span>⌖　${escapeHtml(record.address)}<small>申请人：${escapeHtml(record.applicant)}</small></span><span class="map-pin" aria-hidden="true">↗</span></div>
+          <div class="section-label">已提交材料</div>
+          ${submittedDocs}
+          ${missingDoc}
+          <fieldset class="decision-box">
+            <legend>${record.missing ? "负责人决定 · 缺少可选材料" : "负责人决定 · 材料齐全"}</legend>
+            <p>${record.missing ? "由负责人决定是否允许后续补齐；决定仅作用于本条申请。" : "请选择常规审核决定；决定仅作用于本条申请。"}</p>
+            ${decisionInputs}
+            <button class="primary" id="submit-decision" type="button" disabled>确认本条决定</button>
+            <div class="disabled-note" id="decision-hint">选定处理方式后才能提交。浏览和取消均不会写入。</div>
+          </fieldset>
+        `;
+
+        detail.querySelector("#cancel").addEventListener("click", cancelRecord);
+        detail.querySelectorAll('input[name="decision"]').forEach(input => {
+          input.addEventListener("change", () => {
+            detail.querySelector("#submit-decision").disabled = false;
+            detail.querySelector("#decision-hint").textContent = "确认后此决定只生效一次，并继续下一条待审核申请。";
+          });
+        });
+        detail.querySelector("#submit-decision").addEventListener("click", () => submitDecision(record));
+        detail.querySelector("#cancel").focus();
+      }
+
+      function returnToList({ focusId = state.selectedId } = {}) {
+        detail.style.display = "none";
+        list.hidden = false;
+        tools.hidden = false;
+        viewTitle.textContent = "申请审核";
+        state.selectedId = focusId;
+        renderList({ restoreFocusId: focusId });
+        if (!focusId) search.focus();
+      }
+
+      function cancelRecord() {
+        // 取消仅退出详情；不读取或写入决定状态。
+        returnToList({ focusId: state.selectedId });
+      }
+
+      function submitDecision(record) {
+        const choice = detail.querySelector('input[name="decision"]:checked');
+        const submit = detail.querySelector("#submit-decision");
+        if (record.id !== state.selectedId || record.decision || !choice || submit.disabled) return;
+
+        const priorIndex = state.openIndex;
+        record.decision = choice.value;
+        submit.disabled = true;
+        document.querySelector("#receipt").textContent = `${record.name} · 已记录「${choice.labels[0].textContent.trim()}」`;
+
+        const nextIds = filteredRecords().map(item => item.id);
+        const nextId = nextIds[priorIndex] || nextIds[priorIndex - 1] || null;
+        queueMeta.textContent = `当前条件 · 待审核 ${nextIds.length} 条`;
+        state.filteredIds = nextIds;
+        if (nextId) {
+          openRecord(nextId);
+          return;
+        }
+
+        state.selectedId = null;
+        state.openIndex = -1;
+        returnToList({ focusId: null });
+      }
+
+      list.addEventListener("click", event => {
+        const button = event.target.closest("[data-id]");
+        if (button) openRecord(button.dataset.id);
+      });
+
+      search.addEventListener("input", () => {
+        state.query = search.value;
+        state.scrollTop = 0;
+        state.selectedId = null;
+        renderList();
+      });
+
+      document.querySelectorAll("[data-campus]").forEach(button => {
+        button.addEventListener("click", () => {
+          state.campus = button.dataset.campus;
+          state.scrollTop = 0;
+          state.selectedId = null;
+          document.querySelectorAll("[data-campus]").forEach(chip => {
+            chip.setAttribute("aria-pressed", String(chip === button));
+          });
+          renderList();
+        });
+      });
+
+      renderList();
+    })();
+  </script>
+</body>
+</html>

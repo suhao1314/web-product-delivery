@@ -1,0 +1,4 @@
+interface:
+  display_name: "网页、官网与管理后台"
+  short_description: "从业务任务、视觉和交互设计，到手机性能、后台操作与发布验收"
+  default_prompt: "用 $web-product-delivery 按业务场景设计或改造网站，交付能实际操作并验证的页面。"

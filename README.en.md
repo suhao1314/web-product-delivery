@@ -1,8 +1,8 @@
 # Web Product Delivery
 
-**Build a first website or improve an existing admin app with one AI skill.** Describe who uses the product, on which device, and what they are trying to do. Invoke `$web-product-delivery` and the assistant picks methods from this package and works with your existing stack. The guides and demo interfaces are in Chinese.
+**Build a website, design its interface and interactions, or improve an existing admin app with one AI skill.** Tell `$web-product-delivery` who will visit and what they need to do. It lays out real content, explains design choices and tests the path a visitor takes. The guides and demos are in Chinese.
 
-[Build your first website](#build-your-first-website) · [Improve an existing admin app](#improve-an-existing-admin-app) · [Download the skill](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/web-product-delivery.zip) · [中文](README.md)
+[Design in practice](#design-in-practice) · [Build your first website](#build-your-first-website) · [Improve an existing admin app](#improve-an-existing-admin-app) · [Download the skill](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/web-product-delivery.zip) · [中文](README.md)
 
 ## Install in your project
 
@@ -12,17 +12,31 @@ For an assistant that discovers project skills in `.agents/skills/`, run this on
 git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/web-product-delivery
 ```
 
-You can also unzip the [complete skill](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/web-product-delivery.zip) and place its `web-product-delivery` folder in your assistant's skill directory. Keep `SKILL.md`, `references/`, and `assets/` together, then reopen the project. A file-aware assistant can also read [SKILL.md](SKILL.md) directly.
+You can also unzip the [complete skill](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/web-product-delivery.zip) and place its `web-product-delivery` folder in your assistant's skill directory. Keep `SKILL.md`, `references/`, and `assets/` together, then reopen the project. A file-aware assistant can also read [SKILL.md](SKILL.md) directly.
+
+## Design in practice
+
+[![The Guixiaodi homepage with a Chinese headline and inquiry button on the dark left and a bright diagonal galaxy on the right](docs/guixiaodi-home.jpg)](docs/guixiaodi-home.jpg)
+
+The team behind the Gui Campus product also builds software and teaches AI. This desktop capture comes from a local build of its Guixiaodi company site. Three decisions show how the skill approaches visual and interaction design.
+
+- **Where should the eye land?** A two-line Chinese serif headline sits against the dark part of the image. One smaller line names the services. A solid button invites a project inquiry, while two quieter links lead to products and classes. Check the crop and headline breaks again at phone width.
+- **What should respond to a gesture?** The intended effect is slow dust close to the viewer, a distant moving galaxy and a local disturbance under the pointer. Review a still pointer, a short swipe, release and normal scrolling. A still image can show the composition. Depth and gesture response need a recording. For an admin app, apply the same attention to selection, submission feedback and restored focus. [Motion checks](references/motion.md)
+- **Does the next screen remember the choice?** Choosing the inquiry link for AI 共创界 carries that product into the form. The visitor describes the request in one required field, can expand optional timing and budget fields, then generates a brief and can return to revise it. The button names the action precisely. A visitor sends the copied text through WeCom themselves.
+
+> Use $web-product-delivery to review my homepage with the same headline in two layouts. Explain which one you would ship and why. Then follow a product inquiry at phone width and show whether it remembers the selected product.
+
+At a 390-pixel browser width we followed the product detail link, checked both prefilled fields, generated a brief, went back to edit and generated it again. The capture shows the form on entry. [Phone-width inquiry capture](docs/guixiaodi-inquiry.jpg) · [UI design exercises (Chinese)](references/ui-design-practice.md) · [Company website](https://guixiaoyuan.site/)
 
 ## Build your first website
 
 > Use $web-product-delivery to help me build my first site. I photograph campus events and want organizers to see my work and ask about a shoot with their date and requirements. Let's try it locally this week. Help me build a portfolio and an inquiry page, edit the headline myself, and complete one inquiry.
 
 1. Pick one representative project and decide how an interested visitor will reach you. Build that path before expanding the site.
-2. For a working example, unzip the [two-page starter](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/site-starter.zip) and open `index.html`. Edit the headline and refresh. Follow the featured coffee project to the inquiry page, enter a request, and generate an editable brief. The brief stays on the page until you copy it.
+2. For a working example, unzip the [two-page starter](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/site-starter.zip) and open `index.html`. Edit the headline and refresh. Follow the featured coffee project to the inquiry page, enter a request, and generate an editable brief. The brief stays on the page until you copy it.
 3. Replace the sample work and contact details, test at phone width, and connect a real delivery channel if the studio needs to receive inquiries. When ready, check the preview, public URL, and recovery steps. [First-site guide](references/build-your-first-site.md) · [Starter design decisions](assets/site-starter/DESIGN.md) · [First launch](references/first-launch.md)
 
-[![The portfolio home page in the two-page exercise](docs/first-site.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/site-starter.zip)
+[![The portfolio home page in the two-page exercise](docs/first-site.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/site-starter.zip)
 
 ## Improve an existing admin app
 
@@ -30,9 +44,9 @@ You can also unzip the [complete skill](https://github.com/suhao1314/web-product
 
 1. Open the maintained project and identify the usual entry point, reviewer role, and failing step. Repeat the task with a fixed viewport and filters.
 2. Restore the selected campus and focus when the reviewer returns. Check that switching campus clears the previous selection. Use separate test records to verify scope. [Admin workflows](references/admin.md) · [Drafts and recovery](references/convenience.md)
-3. Try the [offline review demo](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/review-queue.html). Select 松林校区, open a record, and choose 返回申请列表（取消） to return. Check the active filter and focused record. Reopen a record and confirm a decision to continue reviewing. The demo uses fictional records and resets on refresh. Validate authorization and persistence separately in the actual application's test environment. [Ownership and exceptions](references/admin-ownership.md) · [Journey review](references/journey.md)
+3. Try the [offline review demo](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/review-queue.html). Select 松林校区, open a record, and choose 返回申请列表（取消） to return. Check the active filter and focused record. Reopen a record and confirm a decision to continue reviewing. The demo uses fictional records and resets on refresh. Validate authorization and persistence separately in the actual application's test environment. [Ownership and exceptions](references/admin-ownership.md) · [Journey review](references/journey.md)
 
-[![A phone-sized merchant review queue with campus filters](docs/review-queue.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.0/review-queue.html)
+[![A phone-sized merchant review queue with campus filters](docs/review-queue.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/review-queue.html)
 
 ## Other tasks
 
@@ -41,4 +55,4 @@ You can also unzip the [complete skill](https://github.com/suhao1314/web-product
 - Decide whether search, drafts, and onboarding solve an observed problem. [Feature selection](references/feature-tools.md)
 - Investigate a control that looks the same but no longer works with a keyboard or accessible name. [Verification tools](references/verification-tools.md)
 
-Both demos run locally without an account or Node.js. When reporting an issue, include the device, steps, and expected result using fictional data. The original skill and examples are distributed under the MIT License. [License](LICENSE) · [Research sources](references/sources.md)
+Both demos run locally without an account or Node.js. When reporting an issue, include the device, steps, and expected result using fictional data. The original skill and offline demos use the MIT License. The company screenshot illustrates the case study. Brand marks and third-party artwork retain their respective rights. [License](LICENSE) · [Research sources](references/sources.md)

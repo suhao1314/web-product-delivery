@@ -1,6 +1,6 @@
 # Web Product Delivery
 
-**用一个 AI 技能从零做网站、设计界面和交互，也能优化已有后台。** 告诉它谁会来、打开网站要做什么，或哪一步总让人重来。调用 `$web-product-delivery`，它会用你的真实内容排页面、解释取舍，再沿用户的操作路径验证。
+**用一个 AI 技能从零做网站、设计界面和交互，也能优化已有后台。** 不用记技能名或固定提示词：告诉它谁会来、打开网站要做什么，或哪一步总让人重来。它会用你的真实内容排页面、解释取舍，再沿用户的操作路径验证。
 
 [官网 UI 设计实例](#桂小递官网设计实例) · [从零做网站](#从零做网站) · [优化已有后台](#优化已有后台) · [下载完整技能](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/web-product-delivery.zip) · [English](README.en.md)
 
@@ -49,6 +49,10 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 [![离线审核队列，展示校区筛选、申请详情和返回位置](docs/review-queue.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/review-queue.html)
 
 ## 遇到其他问题
+
+**同时做小程序和电脑后台时，可以只说业务。** 例如“学生在微信报名，老师在电脑上按校区审核，验收后给值班员一段培训片”。已装两个自有技能时，助手在同一任务中把原生报名交给小程序技能、浏览器审核交给网站技能，用同一笔虚构报名复核两端状态。若只需云数据库，沿用小程序的云服务流程。[网页分工与培训演示](references/companion-workflow.md)
+
+新网站先用真实内容选构图；已有页面按使用者遇到的障碍评审，分别取舍布局、动效和信息量。业务规则不清或涉及角色数据时，沿一条实际操作路径做到服务端结果，再留下可以复跑的校验。[设计取舍](references/visual-direction-and-change-control.md) · [需求、回归与权限复核](references/feature-workflow.md)
 
 | 你看到的现象 | 这个技能会检查什么 |
 | --- | --- |

@@ -27,6 +27,10 @@
 - [Reddit · 前端设计技能改写与盲评](https://www.reddit.com/r/ClaudeAI/comments/1q7rnpk/i_rewrote_anthropics_frontenddesign_skill_and/)：可借用相同输入做盲比；模型偏好不能证明访客能成功咨询或员工能正确审核。
 - [Hacker News · StyleSeed](https://news.ycombinator.com/item?id=48920888)：设计规则与视觉参考可分别研究。构图反馈用实际素材做代表页；跨页不一致先整理控件与排版规则。
 
+## 按阶段使用的方法
+
+需求梳理与行为回归、权限覆盖与证据记录放在[从需求到回归](feature-workflow.md)。新网页的视觉方向、既有界面评审和三项审美偏好放在[选方向与改版](visual-direction-and-change-control.md)。桌面窗口与视频制作是条件触发的工具，见[配套网页交接与演示](companion-workflow.md)。各节就近列出对应作者原文，设计方法可直接用包内说明实施。
+
 ## 补充资料
 
 首站教学将分阶段带做、同数据比较布局、实物验收与恢复进度用于普通浏览器。基础网页结构可继续学习 [MDN 的第一个网站](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)。部署练习参考 [Cloudflare Pages 直接上传](https://developers.cloudflare.com/pages/get-started/direct-upload/)和[版本回滚](https://developers.cloudflare.com/pages/configuration/rollbacks/)。

@@ -1,6 +1,6 @@
 # Web Product Delivery
 
-**Build a website, design its interface and interactions, or improve an existing admin app with one AI skill.** Tell `$web-product-delivery` who will visit and what they need to do. It lays out real content, explains design choices and tests the path a visitor takes. The guides and demos are in Chinese.
+**Build a website, design its interface and interactions, or improve an existing admin app with one AI skill.** You do not need to remember a skill name or a fixed prompt: tell it who will visit and what they need to do. It lays out real content, explains design choices and tests the path a visitor takes. The guides and demos are in Chinese.
 
 [Design in practice](#design-in-practice) · [Build your first website](#build-your-first-website) · [Improve an existing admin app](#improve-an-existing-admin-app) · [Download the skill](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/web-product-delivery.zip) · [中文](README.md)
 
@@ -49,6 +49,10 @@ At a 390-pixel browser width we followed the product detail link, checked both p
 [![A phone-sized merchant review queue with campus filters](docs/review-queue.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/review-queue.html)
 
 ## Other tasks
+
+For a WeChat mini program with a companion website, describe the job once. With both first-party skills available, the native registration flow stays with the mini-program skill, and this skill handles browser-based review. Verify both ends with the same fictional application. A database-only request stays in the native project. If staff training is part of delivery, capture the verified steps for the video. [Cross-platform handoff](references/companion-workflow.md)
+
+For a new site, choose a composition with real content. For an existing page, rank issues by their effect on the visitor and tune layout, motion or density independently. Develop unclear business rules through one observable user journey and check sensitive results at the service boundary. [Design decisions](references/visual-direction-and-change-control.md) · [Requirements and verification](references/feature-workflow.md)
 
 - Bring a portfolio, product page, and inquiry form into the same visual system. [Design references](references/ui-reference.md)
 - Diagnose slow first visits and touch gestures separately. [Motion](references/motion.md) · [Performance](references/delivery.md)

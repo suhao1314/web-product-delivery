@@ -36,3 +36,11 @@
 首站教学将分阶段带做、同数据比较布局、实物验收与恢复进度用于普通浏览器。基础网页结构可继续学习 [MDN 的第一个网站](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Your_first_website)。部署练习参考 [Cloudflare Pages 直接上传](https://developers.cloudflare.com/pages/get-started/direct-upload/)和[版本回滚](https://developers.cloudflare.com/pages/configuration/rollbacks/)。
 
 [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md) 收录公开网站的第三方设计分析。[UI 参考取舍](ui-reference.md)列出 Stripe、IBM、Linear、Notion 四份分析的 GitHub 固定版本；[便利性研究](convenience.md)收录 draw.io、Gutenberg、React-admin 与 GitHub 的原始例子及适用条件。此处只保留提炼后的设计与决策方法，不包含任何内部工程路径、测试产物或生产记录。
+
+## 动效与任务状态
+
+从原作者的页面和官方文档对照触发、作用范围、滚动节奏及触屏表现。社区分享提供效果名称，包内的 HTML、CSS 和脚本为原创示例。[动效图谱、作者参考与用法](motion-patterns.md) · [16 项离线示例](../assets/motion-lab/index.html)
+
+浏览器验了鼠标、键盘、窄屏触摸模拟、系统减少动效和无脚本时的基本内容。小程序配套网页中还核对了扫光范围、主体位置与弹层关闭后的焦点。设备模拟用于说明测试过的按钮与布局，真实手机和低端显卡表现仍按项目实测。[在成品中验收](motion.md#在成品中验收)
+
+GOV.UK 的展开详情、核对答案与错误摘要用于选择显示内容和修改入口。Carbon 的表格、空状态指南用于结果组织。W3C 的目标尺寸与焦点要求用于检查固定栏和窄屏。Baymard 结账研究提示减少无关字段，迁移到咨询或后台时按当前任务所需信息验证。[任务排版的做法与各原文](ui-design-practice.md#按任务排版和补齐状态) · [Baymard 表单研究](https://baymard.com/research-articles/checkout-flow-average-form-fields)

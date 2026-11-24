@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<!--
+MIT License
+
+Copyright (c) 2026 suhao1314
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="可离线打开的网页动效小样：看效果、触发交互、复制实现思路。" name="description"/>
+  <title>
+   网页动效小样
+  </title>
+  <style>
+   :root {
+      color-scheme: light;
+      --ink: #202723;
+      --muted: #66736b;
+      --paper: #f4f5f0;
+      --card: #fff;
+      --line: #dfe5dc;
+      --green: #2b7556;
+      --lime: #d7f268;
+      --blue: #8bb8e8;
+      --ease: cubic-bezier(.2,.75,.25,1);
+      font-family: Inter,"PingFang SC","Microsoft YaHei",sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .wrap {
+      width: min(1100px,calc(100% - 40px));
+      margin: auto;
+    }
+    .top {
+      padding: 22px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      font-size: 14px;
+      font-weight: 750;
+      letter-spacing: .03em;
+    }
+    .tag {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .hero {
+      padding: 56px 0 32px;
+    }
+    .hero h1 {
+      font-size: clamp(34px,6vw,62px);
+      line-height: 1.04;
+      letter-spacing: -.055em;
+      margin: 12px 0;
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 570px;
+    }
+    .lead {
+      font-size: 16px;
+    }
+    .hero-nav {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .chip,.play {
+      font: inherit;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 8px 13px;
+      text-decoration: none;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .chip:hover,.play:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+    :focus-visible {
+      outline: 3px solid #85bba1;
+      outline-offset: 3px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 14px;
+      padding: 10px 0 64px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .card-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .card h2 {
+      font-size: 16px;
+      margin: 0;
+      letter-spacing: -.02em;
+    }
+    .num {
+      font-size: 10px;
+      color: #8a968d;
+      font-variant-numeric: tabular-nums;
+    }
+    .card p {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 6px 0 14px;
+    }
+    .stage {
+      min-height: 116px;
+      border-radius: 11px;
+      background: #f2f5ef;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 16px;
+      isolation: isolate;
+    }
+    .stage.dark {
+      background: #17251e;
+      color: #f5f7f1;
+    }
+    .sample {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    /* Spotlight: pointer position stays inside a fixed-size stage. */
+    #spotlight .stage {
+      background: radial-gradient(130px circle at var(--x,50%) var(--y,50%),#dff38a 0,rgba(223,243,138,.32) 45%,#17251e 100%);
+      color: #fff;
+    }
+    /* Reveal: content is visible by default; JS only adds a subtle entry. */
+    .beam {
+      position: relative;
+      background: #15241d;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 10px;
+    }
+    .beam:before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 11px;
+      padding: 1px;
+      background: conic-gradient(from var(--angle,0deg),transparent 0 70%,#d8f47a 82%,#71d6b3 90%,transparent 100%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .beam.is-running:before {
+      opacity: 1;
+      animation: beam 1.2s linear 1;
+    }
+    @keyframes beam {
+      to {
+        --angle: 360deg;
+      }
+    }
+    @property --angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+    .magnet {
+      position: relative;
+      padding: 11px 18px;
+      border: 0;
+      border-radius: 9px;
+      background: #246b4e;
+      color: #fff;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      min-width: 116px;
+      min-height: 42px;
+      transition: background .2s;
+    }
+    .magnet:hover {
+      background: #1e5d43;
+    }
+    .magnet-face {
+      display: block;
+      transition: transform .16s ease-out;
+    }
+    .scroll-story {
+      position: relative;
+      width: 100%;
+      height: 118px;
+      overflow-y: auto;
+      scroll-snap-type: y proximity;
+    }
+    .story-panel {
+      min-block-size: 100%;
+      padding-inline-end: 4.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      scroll-snap-align: start;
+    }
+    .story-panel strong {
+      font-size: 14px;
+    }
+    .story-panel p {
+      margin: 2px 0 0;
+    }
+    .story-indicator {
+      position: absolute;
+      inset-block-start: 15px;
+      inset-inline-end: 28px;
+      font-size: 11px;
+      color: #466253;
+      background: #f2f5ef;
+      padding: 4px;
+      border-radius: 6px;
+    }
+    .magnet-stage {
+      overflow: visible;
+    }
+    .scramble-visual,.type-visual {
+      position: relative;
+    }
+    .scramble-final,.type-final {
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .count {
+      font-size: 28px;
+      font-weight: 750;
+      font-variant-numeric: tabular-nums;
+    }
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      border-block: 1px solid #d8e0d6;
+      padding: 12px 0;
+    }
+    .marquee-track {
+      display: flex;
+      justify-content: space-around;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .marquee span {
+      font-size: 13px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+    .marquee-track.is-running {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+    }
+    .marquee-track.is-running span {
+      flex: 0 0 auto;
+    }
+    .tilt-card {
+      padding: 14px 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px #20332912;
+      transition: transform .2s ease-out,box-shadow .2s;
+    }
+    .shine {
+      padding: 10px 18px;
+      border-radius: 9px;
+      background: #dfe7dc;
+      position: relative;
+      overflow: hidden;
+    }
+    .shine:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-120%);
+      background: linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);
+    }
+    .shine.is-busy:after {
+      animation: shine .9s ease-in-out 1;
+    }
+    @keyframes shine {
+      to {
+        transform: translateX(120%);
+      }
+    }
+    .para-scene {
+      width: 100%;
+      height: 86px;
+      position: relative;
+      overflow: hidden;
+      background: #e4eee3;
+      border-radius: 9px;
+    }
+    .para-sun {
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #d9e994;
+      left: calc(50% - 19px);
+      top: 8px;
+    }
+    .para-hill {
+      position: absolute;
+      width: 125%;
+      height: 70px;
+      left: -12%;
+      bottom: -35px;
+      border-radius: 50% 50% 0 0;
+      background: #97b89a;
+      transform: translateY(var(--shift,0px));
+    }
+    .para-hill.back {
+      bottom: -44px;
+      background: #6f9c7b;
+      transform: translateY(calc(var(--shift,0px)*-.55));
+    }
+    .stagger {
+      display: flex;
+      gap: 8px;
+    }
+    .stagger i {
+      display: block;
+      width: 19px;
+      height: 19px;
+      border-radius: 5px;
+      background: #65a77e;
+      transform: translateY(0);
+      opacity: .35;
+    }
+    .spring-ball {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #80b998;
+      transform: translateX(0);
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 11px;
+    }
+    .status {
+      font-size: 11px;
+      color: #78857b;
+    }
+    .footer {
+      padding: 0 0 32px;
+      color: #829087;
+      font-size: 11px;
+    }
+    .stage[data-effect="scrollytelling"] {
+      min-height: 150px;
+      display: block;
+      padding: 12px;
+    }
+    @media (max-width:680px) {
+      .wrap {
+        width: min(100% - 28px,520px);
+      }
+      .hero {
+        padding-top: 38px;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 11px;
+        padding-bottom: 40px;
+      }
+      .card {
+        padding: 15px;
+      }
+      .stage {
+        min-height: 108px;
+      }
+      .tag {
+        max-width: 120px;
+        text-align: right;
+      }
+    }
+    [hidden] {
+      display: none !important;
+    }
+    .hero {
+      padding-top: 38px;
+    }
+    .hero h1 {
+      letter-spacing: -.035em;
+    }
+    .stage[data-effect="magnetic-button"] {
+      gap: 8px;
+      padding-block: 14px;
+    }
+    #spotlight .stage {
+      color: #f5f7f1;
+    }
+    #spotlight .sample {
+      background: #17251ed8;
+      padding: 6px 11px;
+      border-radius: 6px;
+    }
+    .beam {
+      border: 1px solid #537968;
+    }
+    .beam::before {
+      padding: 2px;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+    }
+    .reveal.is-seen {
+      animation: reveal .42s var(--ease) both;
+    }
+    @keyframes reveal {
+      from {
+        opacity: .7;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    .lift-link {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 9px;
+      color: var(--ink);
+    }
+    .lift-face {
+      display: block;
+      background: #fff;
+      padding: 11px 19px;
+      border-radius: inherit;
+      box-shadow: 0 3px 7px #18322318;
+      transition: transform .22s var(--ease), box-shadow .22s;
+    }
+    .lift-link:focus-visible .lift-face {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 19px #18322329;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .lift-link:hover .lift-face {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 19px #18322329;
+      }
+    }
+    .scramble-changing, .type-changing {
+      position: absolute;
+      inset: 0;
+      white-space: nowrap;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .is-playing .scramble-final, .is-playing .type-final {
+      opacity: 0;
+    }
+    .ease-lane {
+      display: grid;
+      grid-template-columns: 5em minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+      width: min(100%, 280px);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .ease-track {
+      height: 28px;
+      border-bottom: 1px solid #c0cec0;
+      position: relative;
+    }
+    .ease-ball {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #94b839;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .reveal.is-seen, .beam.is-running::before, .shine.is-busy::after {
+        animation: none;
+      }
+      .magnet-face, .tilt-card, .lift-face {
+        transition: none;
+      }
+      .magnet-face, .tilt-card, .lift-link .lift-face, .para-hill {
+        transform: none !important;
+      }
+    }
+  </style>
+ </head>
+ <body>
+  <header class="wrap top">
+   <div class="brand">
+    网页动效小样
+   </div>
+   <div class="tag">
+    16 项 · 可离线打开
+   </div>
+  </header>
+  <main class="wrap">
+   <section class="hero">
+    <h1>
+     16 种交互动效
+    </h1>
+    <p class="lead">
+     按卡片说明移动指针、滚动或点按钮，查看可用于网站的动效。
+    </p>
+    <nav aria-label="动效目录" class="hero-nav">
+     <a class="chip" href="#spotlight">
+      指针反馈
+     </a>
+     <a class="chip" href="#scroll-reveal">
+      滚动阅读
+     </a>
+     <a class="chip" href="#text-scramble">
+      文字与状态
+     </a>
+     <a class="chip" href="#spring">
+      动作曲线
+     </a>
+    </nav>
+   </section>
+   <section aria-label="动效示例" class="grid">
+    <article class="card" id="spotlight">
+     <div class="card-head">
+      <span class="num">
+       01
+      </span>
+      <h2>
+       鼠标聚光
+      </h2>
+     </div>
+     <p>
+      指针只照亮卡片内的位置；移出后归中。
+     </p>
+     <div class="stage dark" data-effect="spotlight">
+      <span class="sample">
+       在这里移动指针
+      </span>
+     </div>
+    </article>
+    <article class="card" id="scroll-reveal">
+     <div class="card-head">
+      <span class="num">
+       02
+      </span>
+      <h2>
+       滚动显现
+      </h2>
+     </div>
+     <p>
+      滚入视口后，内容轻移入位。
+     </p>
+     <div class="stage" data-effect="scroll-reveal">
+      <span class="sample reveal">
+       内容随真实滚动进入
+      </span>
+     </div>
+    </article>
+    <article class="card" id="border-beam">
+     <div class="card-head">
+      <span class="num">
+       03
+      </span>
+      <h2>
+       边缘流光
+      </h2>
+     </div>
+     <p>
+      窄光沿轮廓缓慢经过，主体保持静止。
+     </p>
+     <div class="stage dark" data-effect="border-beam">
+      <div class="beam">
+       当前步骤 · 已保存
+      </div>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="border-beam" hidden="" type="button">
+       流光经过一次
+      </button>
+     </div>
+    </article>
+    <article class="card" id="magnetic-button">
+     <div class="card-head">
+      <span class="num">
+       04
+      </span>
+      <h2>
+       磁吸按钮
+      </h2>
+     </div>
+     <p>
+      按钮内层轻随指针。点按区域和键盘焦点保持稳定。
+     </p>
+     <div class="stage magnet-stage" data-effect="magnetic-button">
+      <button class="magnet" disabled="" type="button">
+       <span class="magnet-face">
+        查看详情
+       </span>
+      </button>
+      <span class="status magnet-status" role="status">
+       点按按钮查看反馈
+      </span>
+     </div>
+    </article>
+    <article class="card" id="scrollytelling">
+     <div class="card-head">
+      <span class="num">
+       05
+      </span>
+      <h2>
+       滚动叙事
+      </h2>
+     </div>
+     <p>
+      自然滚动切换短句，不拦截页面滚动或键盘。
+     </p>
+     <div class="stage" data-effect="scrollytelling">
+      <div aria-label="滚动查看三个步骤" class="scroll-story" role="region" tabindex="0">
+       <section class="story-panel" data-story-step="">
+        <strong>
+         先看清要解决的事
+        </strong>
+        <p>
+         每一步只留一条关键信息。
+        </p>
+       </section>
+       <section class="story-panel" data-story-step="">
+        <strong>
+         再展示真实内容
+        </strong>
+        <p>
+         用具体例子解释价值。
+        </p>
+       </section>
+       <section class="story-panel" data-story-step="">
+        <strong>
+         最后给出下一步
+        </strong>
+        <p>
+         让联系入口清楚可见。
+        </p>
+       </section>
+      </div>
+      <span aria-hidden="true" class="story-indicator" hidden="">
+       01 / 03
+      </span>
+     </div>
+    </article>
+    <article class="card" id="tilt">
+     <div class="card-head">
+      <span class="num">
+       06
+      </span>
+      <h2>
+       3D 倾斜
+      </h2>
+     </div>
+     <p>
+      展示块轻微倾斜，指针离开后回正。
+     </p>
+     <div class="stage" data-effect="tilt">
+      <div class="tilt-card">
+       校园服务 · 一站看清
+      </div>
+     </div>
+    </article>
+    <article class="card" id="text-scramble">
+     <div class="card-head">
+      <span class="num">
+       07
+      </span>
+      <h2>
+       文字解码
+      </h2>
+     </div>
+     <p>
+      短暂字符变化后落到完整标题。
+     </p>
+     <div class="stage" data-effect="text-scramble">
+      <span class="scramble-visual">
+       <span class="scramble-final">
+        把想法说清楚
+       </span>
+       <span aria-hidden="true" class="scramble-changing">
+       </span>
+      </span>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="text-scramble" hidden="" type="button">
+       播放一次
+      </button>
+      <span class="status">
+       完整文字常驻可读
+      </span>
+     </div>
+    </article>
+    <article class="card" id="shimmer">
+     <div class="card-head">
+      <span class="num">
+       08
+      </span>
+      <h2>
+       流光扫过
+      </h2>
+     </div>
+     <p>
+      按按钮演示加载，再明确落到“已就绪”。
+     </p>
+     <div class="stage" data-effect="shimmer">
+      <span class="shine">
+       已就绪
+      </span>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="shimmer" hidden="" type="button">
+       演示加载
+      </button>
+      <span aria-live="polite" class="status" role="status">
+       当前状态：已就绪
+      </span>
+     </div>
+    </article>
+    <article class="card" id="parallax">
+     <div class="card-head">
+      <span class="num">
+       09
+      </span>
+      <h2>
+       滚动视差
+      </h2>
+     </div>
+     <p>
+      真实页面滚动带来有限层差，不持续漂移。
+     </p>
+     <div class="stage" data-effect="parallax">
+      <div class="para-scene">
+       <i class="para-sun">
+       </i>
+       <i class="para-hill back">
+       </i>
+       <i class="para-hill">
+       </i>
+      </div>
+     </div>
+    </article>
+    <article class="card" id="count-up">
+     <div class="card-head">
+      <span class="num">
+       10
+      </span>
+      <h2>
+       数字递增
+      </h2>
+     </div>
+     <p>
+      按钮触发示例计数；结束后停在准确值。
+     </p>
+     <div class="stage" data-effect="count-up">
+      <span aria-hidden="true" class="count" data-final="128">
+       128
+      </span>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="count-up" hidden="" type="button">
+       重新计数
+      </button>
+      <span class="status">
+       示例数据 · 128
+      </span>
+     </div>
+    </article>
+    <article class="card" id="hover-lift">
+     <div class="card-head">
+      <span class="num">
+       11
+      </span>
+      <h2>
+       悬停浮起
+      </h2>
+     </div>
+     <p>
+      桌面悬停抬起；触屏维持静态，焦点可见。
+     </p>
+     <div class="stage" data-effect="hover-lift">
+      <a class="lift-link" href="#typewriter">
+       <span class="lift-face">
+        查看文字示例
+       </span>
+      </a>
+     </div>
+    </article>
+    <article class="card" id="typewriter">
+     <div class="card-head">
+      <span class="num">
+       12
+      </span>
+      <h2>
+       打字效果
+      </h2>
+     </div>
+     <p>
+      点击后逐字出现，最终全文留在页面中。
+     </p>
+     <div class="stage" data-effect="typewriter">
+      <span class="type-visual">
+       <span class="type-final">
+        用清楚的话说明服务
+       </span>
+       <span aria-hidden="true" class="type-changing">
+       </span>
+      </span>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="typewriter" hidden="" type="button">
+       重新播放
+      </button>
+     </div>
+    </article>
+    <article class="card" id="stagger">
+     <div class="card-head">
+      <span class="num">
+       13
+      </span>
+      <h2>
+       错峰动画
+      </h2>
+     </div>
+     <p>
+      小组元素错开出现，最后全部停稳。
+     </p>
+     <div class="stage" data-effect="stagger">
+      <div aria-label="三个依次出现的步骤" class="stagger">
+       <i>
+       </i>
+       <i>
+       </i>
+       <i>
+       </i>
+      </div>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="stagger" hidden="" type="button">
+       播放一组
+      </button>
+     </div>
+    </article>
+    <article class="card" id="marquee">
+     <div class="card-head">
+      <span class="num">
+       14
+      </span>
+      <h2>
+       跑马灯
+      </h2>
+     </div>
+     <p>
+      点按后横向移动一次，停下来可读到全部条目。
+     </p>
+     <div class="stage" data-effect="marquee">
+      <div class="marquee">
+       <div class="marquee-track">
+        <span>
+         校园生活
+        </span>
+        <span>
+         便民服务
+        </span>
+        <span>
+         活动资讯
+        </span>
+        <span>
+         商家福利
+        </span>
+       </div>
+      </div>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="marquee" hidden="" type="button">
+       滚动一遍
+      </button>
+     </div>
+    </article>
+    <article class="card" id="spring">
+     <div class="card-head">
+      <span class="num">
+       15
+      </span>
+      <h2>
+       弹性回位
+      </h2>
+     </div>
+     <p>
+      触发后轻弹到终点，停留在稳定位置。
+     </p>
+     <div class="stage" data-effect="spring">
+      <i class="spring-ball">
+      </i>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="spring" hidden="" type="button">
+       弹一下
+      </button>
+     </div>
+    </article>
+    <article class="card" id="easing">
+     <div class="card-head">
+      <span class="num">
+       16
+      </span>
+      <h2>
+       缓动对比
+      </h2>
+     </div>
+     <p>
+      相同距离和时长，比较匀速和先快后慢。
+     </p>
+     <div class="stage" data-effect="easing">
+      <div class="ease-lane">
+       <span>
+        匀速
+       </span>
+       <div class="ease-track">
+        <i aria-hidden="true" class="ease-ball" data-curve="linear">
+        </i>
+       </div>
+      </div>
+      <div class="ease-lane">
+       <span>
+        先快后慢
+       </span>
+       <div class="ease-track">
+        <i aria-hidden="true" class="ease-ball" data-curve="ease-out">
+        </i>
+       </div>
+      </div>
+     </div>
+     <div class="controls">
+      <button class="play" data-play="easing" hidden="" type="button">
+       运行一次
+      </button>
+     </div>
+    </article>
+   </section>
+  </main>
+  <footer class="wrap footer">
+   本页为离线练习样例。实际项目应按内容、设备和减少动态效果偏好选择动效。
+  </footer>
+  <script>
+   (() => {
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      const fine = matchMedia('(hover: hover) and (pointer: fine)');
+      const element = id => document.getElementById(id);
+      const receiver = (id, selector) => element(id).querySelector(selector);
+      const canFollowPointer = () => fine.matches && !reduced.matches;
+      const stops = new Map();
+      const resetPointers = [];
+
+      function followPointer(surface, update, reset) {
+        let pending = 0;
+        let position;
+        function stop() {
+          cancelAnimationFrame(pending);
+          pending = 0;
+          reset();
+        }
+        resetPointers.push(stop);
+        surface.addEventListener('pointermove', event => {
+          if (!canFollowPointer() || event.pointerType === 'touch') return;
+          position = [event.clientX, event.clientY];
+          if (pending) return;
+          pending = requestAnimationFrame(() => {
+            pending = 0;
+            const rect = surface.getBoundingClientRect();
+            update(position[0] - rect.left, position[1] - rect.top, rect);
+          });
+        });
+        surface.addEventListener('pointerleave', stop);
+        surface.addEventListener('pointercancel', stop);
+      }
+
+      const spotlight = receiver('spotlight', '.stage');
+      followPointer(spotlight, (x, y) => {
+        spotlight.style.setProperty('--x', x + 'px');
+        spotlight.style.setProperty('--y', y + 'px');
+      }, () => {
+        spotlight.style.removeProperty('--x');
+        spotlight.style.removeProperty('--y');
+      });
+
+      const magnet = receiver('magnetic-button', '.magnet');
+      const magnetFace = magnet.querySelector('.magnet-face');
+      const limit = (value, size) => Math.max(-size, Math.min(size, value));
+      followPointer(magnet, (x, y, rect) => {
+        const dx = limit((x - rect.width / 2) * 0.12, 5);
+        const dy = limit((y - rect.height / 2) * 0.12, 4);
+        magnetFace.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+      }, () => { magnetFace.style.transform = ''; });
+      magnet.disabled = false;
+      magnet.addEventListener('click', () => {
+        receiver('magnetic-button', '.magnet-status').textContent = '按钮已触发';
+      });
+
+      const tilt = receiver('tilt', '.stage');
+      const tiltCard = tilt.querySelector('.tilt-card');
+      followPointer(tilt, (x, y, rect) => {
+        const pitch = (0.5 - y / rect.height) * 8;
+        const yaw = (x / rect.width - 0.5) * 12;
+        tiltCard.style.transform = 'perspective(500px) rotateX(' + pitch + 'deg) rotateY(' + yaw + 'deg)';
+      }, () => { tiltCard.style.transform = ''; });
+
+      const beam = receiver('border-beam', '.beam');
+      function sweepBeam() {
+        if (reduced.matches) return;
+        beam.classList.remove('is-running');
+        void beam.offsetWidth;
+        beam.classList.add('is-running');
+      }
+      beam.addEventListener('pointerenter', () => {
+        if (canFollowPointer()) sweepBeam();
+      });
+      beam.addEventListener('animationend', () => beam.classList.remove('is-running'));
+
+      const story = receiver('scrollytelling', '.scroll-story');
+      const storySteps = [...story.querySelectorAll('[data-story-step]')];
+      const indicator = receiver('scrollytelling', '.story-indicator');
+      function updateStoryStep() {
+        const midpoint = story.scrollTop + story.clientHeight / 2;
+        const active = storySteps.findIndex(step => step.offsetTop + step.offsetHeight > midpoint);
+        const position = active < 0 ? storySteps.length : active + 1;
+        const label = String(position).padStart(2, '0') + ' / 03';
+        if (indicator.textContent !== label) indicator.textContent = label;
+      }
+      indicator.hidden = false;
+      story.addEventListener('scroll', updateStoryStep, { passive: true });
+      updateStoryStep();
+
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            if (!reduced.matches) entry.target.classList.add('is-seen');
+            observer.unobserve(entry.target);
+          }
+        }, { threshold: 0.2 });
+        revealObserver.observe(receiver('scroll-reveal', '.reveal'));
+      }
+
+      const parallax = receiver('parallax', '.stage');
+      let scrollFrame = 0;
+      function requestParallaxFrame() {
+        if (scrollFrame || reduced.matches) return;
+        scrollFrame = requestAnimationFrame(() => {
+          scrollFrame = 0;
+          const rect = parallax.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > innerHeight) return;
+          const progress = (innerHeight - rect.top) / (innerHeight + rect.height);
+          parallax.style.setProperty('--shift', ((progress - 0.5) * 12) + 'px');
+        });
+      }
+      addEventListener('scroll', requestParallaxFrame, { passive: true });
+      addEventListener('resize', requestParallaxFrame);
+      requestParallaxFrame();
+
+      function trackTime(key, duration, update, finish) {
+        stops.get(key)?.();
+        if (reduced.matches) {
+          finish();
+          return;
+        }
+        const start = performance.now();
+        let frame;
+        function stop() {
+          cancelAnimationFrame(frame);
+          stops.delete(key);
+          finish();
+        }
+        function advance(now) {
+          const progress = Math.min(1, (now - start) / duration);
+          if (progress === 1) {
+            stop();
+            return;
+          }
+          update(progress);
+          frame = requestAnimationFrame(advance);
+        }
+        stops.set(key, stop);
+        update(0);
+        frame = requestAnimationFrame(advance);
+      }
+
+      function animate(node, frames, options, cleanup) {
+        if (reduced.matches || typeof node.animate !== 'function') {
+          cleanup?.();
+          return;
+        }
+        node.getAnimations().forEach(animation => animation.cancel());
+        const animation = node.animate(frames, options);
+        animation.onfinish = cleanup || null;
+        animation.oncancel = cleanup || null;
+      }
+
+      function playText(key, selector, format, duration) {
+        const layer = receiver(key, selector);
+        let previous = '';
+        trackTime(key, duration, progress => {
+          const current = format(progress);
+          if (current === previous) return;
+          previous = current;
+          layer.parentElement.classList.add('is-playing');
+          layer.textContent = current;
+        }, () => {
+          layer.parentElement.classList.remove('is-playing');
+          layer.textContent = '';
+        });
+      }
+
+      const demos = {
+        'border-beam': sweepBeam,
+        'text-scramble': () => {
+          const title = receiver('text-scramble', '.scramble-final').textContent.trim();
+          const glyphs = '网页动效反馈清晰';
+          playText('text-scramble', '.scramble-changing', progress => {
+            const step = Math.floor(progress * title.length);
+            return Array.from(title, (letter, index) => index < step ? letter : glyphs[(step + index) % glyphs.length]).join('');
+          }, 620);
+        },
+        shimmer: () => {
+          const label = receiver('shimmer', '.shine');
+          const status = receiver('shimmer', '.status');
+          stops.get('shimmer')?.();
+          if (reduced.matches) return;
+          label.textContent = '加载中…';
+          label.classList.add('is-busy');
+          status.textContent = '当前状态为加载中';
+          const timeout = setTimeout(complete, 900);
+          function complete() {
+            clearTimeout(timeout);
+            stops.delete('shimmer');
+            label.classList.remove('is-busy');
+            label.textContent = '已就绪';
+            status.textContent = '当前状态为已就绪';
+          }
+          stops.set('shimmer', complete);
+        },
+        'count-up': () => {
+          const value = receiver('count-up', '.count');
+          const final = Number(value.dataset.final);
+          trackTime('count-up', 900, progress => {
+            value.textContent = Math.round(final * (1 - (1 - progress) ** 3));
+          }, () => { value.textContent = final; });
+        },
+        typewriter: () => {
+          const title = receiver('typewriter', '.type-final').textContent.trim();
+          playText('typewriter', '.type-changing', progress => title.slice(0, 1 + Math.floor(progress * title.length)), 860);
+        },
+        stagger: () => {
+          element('stagger').querySelectorAll('.stagger i').forEach((node, index) => {
+            animate(node, [{ transform: 'translateY(10px)', opacity: 0.2 }, { transform: 'none', opacity: 1 }], {
+              duration: 340, delay: index * 65, easing: 'ease-out', fill: 'forwards',
+            });
+          });
+        },
+        marquee: () => {
+          const track = receiver('marquee', '.marquee-track');
+          if (reduced.matches || typeof track.animate !== 'function') return;
+          const old = track.getAnimations()[0];
+          if (old) {
+            old.oncancel = null;
+            old.cancel();
+          }
+          track.classList.add('is-running');
+          const width = track.parentElement.clientWidth;
+          const distance = Math.max(38, Math.min(width * 0.8, track.scrollWidth - width + 22));
+          animate(track, [{ transform: 'none' }, { transform: 'translateX(-' + distance + 'px)' }], {
+            duration: 1380, easing: 'linear',
+          }, () => track.classList.remove('is-running'));
+        },
+        spring: () => {
+          const ball = receiver('spring', '.spring-ball');
+          animate(ball, [
+            { transform: 'none' },
+            { transform: 'translateX(60px)', offset: 0.48 },
+            { transform: 'translateX(45px)', offset: 0.74 },
+            { transform: 'translateX(50px)' },
+          ], { duration: 620, easing: 'ease-out', fill: 'forwards' });
+        },
+        easing: () => {
+          element('easing').querySelectorAll('.ease-ball').forEach(ball => {
+            const distance = ball.parentElement.clientWidth - ball.offsetWidth;
+            animate(ball, [{ transform: 'none' }, { transform: 'translateX(' + distance + 'px)' }], {
+              duration: 950, easing: ball.dataset.curve, fill: 'forwards',
+            });
+          });
+        },
+      };
+
+      document.querySelectorAll('button[data-play]').forEach(button => {
+        button.addEventListener('click', demos[button.dataset.play]);
+        button.hidden = false;
+      });
+
+      function clearMotion() {
+        resetPointers.forEach(stop => stop());
+        cancelAnimationFrame(scrollFrame);
+        scrollFrame = 0;
+        parallax.style.removeProperty('--shift');
+        beam.classList.remove('is-running');
+        [...stops.values()].forEach(stop => stop());
+      }
+      fine.addEventListener?.('change', () => resetPointers.forEach(stop => stop()));
+      reduced.addEventListener?.('change', () => {
+        if (!reduced.matches) return;
+        clearMotion();
+        document.getAnimations?.().forEach(animation => animation.cancel());
+      });
+      addEventListener('blur', clearMotion);
+    })();
+  </script>
+ </body>
+</html>

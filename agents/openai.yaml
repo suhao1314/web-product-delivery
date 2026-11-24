@@ -1,6 +1,6 @@
 interface:
   display_name: "网页、官网与管理后台"
-  short_description: "从零做网站，学会判断 UI 排版、审美和交互，也能走查和优化已有后台"
-  default_prompt: "根据我说的业务目标或页面问题，主动选合适的方法动手；该做网页、后台、小程序分工、权限复核或交接演示时直接说明并给我看实际验证结果。"
+  short_description: "从零带做网站，接手已有官网和后台评审、改版、优化并验证实际效果"
+  default_prompt: "用 $web-product-delivery 根据我手头的网站进度带做、评审或优化，并给我看实际结果。"
 policy:
   allow_implicit_invocation: true

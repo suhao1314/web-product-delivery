@@ -1,8 +1,8 @@
 # Web Product Delivery
 
-**用一个 AI 技能从零做网站、设计界面和交互，也能优化已有后台。** 不用记技能名或固定提示词：告诉它谁会来、打开网站要做什么，或哪一步总让人重来。它会用你的真实内容排页面、解释取舍，再沿用户的操作路径验证。
+**用一个 AI 技能，从零做网站，也能评审、重构和优化已有官网或后台。** 给它一个想法、网址、截图、设计稿或源码，告诉它谁会用、想办什么事。它会从当前进度动手，用真实内容做设计，再用浏览器走到实际结果。
 
-[官网 UI 设计实例](#桂小递官网设计实例) · [从零做网站](#从零做网站) · [优化已有后台](#优化已有后台) · [下载完整技能](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/web-product-delivery.zip) · [English](README.en.md)
+[官网 UI 设计实例](#桂小递官网设计实例) · [从零做网站](#从零做网站) · [评审或改版](#评审或改版已有网站) · [优化已有后台](#优化已有后台) · [16 个动效](#试试页面上的动效) · [下载完整技能](https://github.com/suhao1314/web-product-delivery/releases/download/v0.4.0/web-product-delivery.zip) · [English](README.en.md)
 
 ## 安装到项目
 
@@ -12,7 +12,18 @@
 git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/web-product-delivery
 ```
 
-不用 Git 也可以。解压[完整技能 ZIP](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/web-product-delivery.zip)，把里面的 `web-product-delivery` 文件夹放进助手的技能目录。确认文件夹中有 `SKILL.md`、`references/` 和 `assets/`，然后重新打开项目。支持读取本机文件的其他助手，也可以直接从包内的 [SKILL.md](SKILL.md) 开始。按你的目标挑下面一段示例发给 AI 即可。
+不用 Git 也可以。解压[完整技能 ZIP](https://github.com/suhao1314/web-product-delivery/releases/download/v0.4.0/web-product-delivery.zip)，把里面的 `web-product-delivery` 文件夹放进助手的技能目录。确认文件夹中有 `SKILL.md`、`references/` 和 `assets/`，然后重新打开项目。支持读取本机文件的其他助手，也可以直接从包内的 [SKILL.md](SKILL.md) 开始。按你的目标挑下面一段示例发给 AI 即可。
+
+## 可以直接这么说
+
+| 你手上有什么 | 跟 AI 怎么说 | 这轮你能看到什么 |
+| --- | --- | --- |
+| 只有一个想法 | “给我的摄影工作室做个官网，让社团负责人看作品后能咨询。” | 桌面和手机 UI 图。确认后补齐素材，做一条从作品到咨询的可操作路径。 |
+| 有网址或截图，想听建议 | “看这个产品页。先说为什么手机用户找不到咨询，给一个改法。” | 带页面位置的问题、影响、首选改法和核验步骤。 |
+| 有源码，要优化或改版 | “手机审核完一条就回到列表顶部，帮我在这个后台修好。” | 同一路径的改前、改后结果，包括筛选、详情及返回位置。 |
+| 已有设计稿或做了一半 | “按我确认过的设计，把咨询入口接上，让我点一遍。” | 沿已定设计继续做，交可操作预览和实测结果。 |
+
+支持自动识别的助手可以直接读懂这些请求。想明确点名时，在开头加 `$web-product-delivery`。设计、交互、性能、权限和可用性的方法由这一个技能按需要选用。[技能入口](SKILL.md)
 
 ## 桂小递官网设计实例
 
@@ -33,10 +44,14 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 > 用 $web-product-delivery 带我做第一个网站。我给校园社团拍活动，希望负责人看完作品，带着活动时间和拍摄需求来找我。这周先在自己电脑上试。帮我做出作品页和咨询页，让我亲手改一次标题，再走通一次咨询。
 
 1. **定首版。** AI 和你确认谁来、看什么、最后怎么联系。先放一个真实作品和一个咨询入口，就能试出访客看完之后知不知道下一步。
-2. **看到页面。** 想先练手，可以解压[两页练习站](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/site-starter.zip)，双击 `index.html`。改标题后保存刷新，找到“山野咖啡”，点“带着这个方向去咨询”。填一句需求，生成摘要，再手改或复制。练习页离线可用，摘要保留在当前页面。
+2. **看到页面。** 想先练手，可以解压[两页练习站](https://github.com/suhao1314/web-product-delivery/releases/download/v0.4.0/site-starter.zip)，双击 `index.html`。改标题后保存刷新，找到“山野咖啡”，点“带着这个方向去咨询”。填一句需求，生成摘要，再手改或复制。练习页离线可用，摘要保留在当前页面。
 3. **换成自己的站并发布。** AI 帮你替换作品、联系渠道和页面样式，在手机宽度走完这条路径。需要工作室真正收到咨询时，再接入实际收件渠道。准备上线后，按项目选托管、预览、核对正式网址，并留下恢复上一版的方法。[从空文件开始](references/build-your-first-site.md) · [样站的设计约定](assets/site-starter/DESIGN.md) · [首次发布与接手](references/first-launch.md)
 
-[![教学样站首页，访客可以从作品进入咨询](docs/first-site.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/site-starter.zip)
+[![教学样站首页，访客可以从作品进入咨询](docs/first-site.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.4.0/site-starter.zip)
+
+## 评审或改版已有网站
+
+带着实际问题从原入口试一次。比如“手机上读完课程，咨询还要重新选方向”，就从课程目录点到表单，记录访客重复找、填或返回的地方。只需要建议时给问题位置和首选改法。准备整体改版时先记下原链接、字段、反馈和权限，确认桌面与手机 UI 图后再开发。改完用同样的数据、视口和入口重走。[按用户任务走查](references/journey.md) · [任务排版与状态](references/ui-design-practice.md#按任务排版和补齐状态) · [改版功能对账](references/visual-direction-and-change-control.md#对已有页面改版前的功能基线)
 
 ## 优化已有后台
 
@@ -44,9 +59,13 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 
 1. **交给 AI 正在维护的项目。** 告诉它正常入口、操作者和卡住的步骤。AI 从同一角色、筛选条件和手机宽度复走一次，找出丢的是校区、列表位置，还是刚才查看的申请。
 2. **改最费劲的一步。** 例如从详情返回时保留本校筛选，把焦点还给刚才那条申请。切换校区时清除上一校区的选择，用两份隔离测试数据核对记录归属。[审核队列与数据范围](references/admin.md) · [草稿与恢复](references/convenience.md)
-3. **亲手验效果。** 打开[手机审核演示](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/review-queue.html)，选“松林校区”，打开一条申请再点“返回申请列表（取消）”，看筛选和焦点落在哪里。再次打开、作出决定，观察下一条待办。这个示例使用虚构数据，刷新即可重试。真实项目的权限和写入结果在对应测试环境单独验证。[首管与人工处置](references/admin-ownership.md) · [按用户任务走查](references/journey.md)
+3. **亲手验效果。** 打开[手机审核演示](https://github.com/suhao1314/web-product-delivery/releases/download/v0.4.0/review-queue.html)，选“松林校区”，打开一条申请再点“返回申请列表（取消）”，看筛选和焦点落在哪里。再次打开、作出决定，观察下一条待办。这个示例使用虚构数据，刷新即可重试。真实项目的权限和写入结果在对应测试环境单独验证。[首管与人工处置](references/admin-ownership.md) · [按用户任务走查](references/journey.md)
 
-[![离线审核队列，展示校区筛选、申请详情和返回位置](docs/review-queue.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.3.1/review-queue.html)
+[![离线审核队列，展示校区筛选、申请详情和返回位置](docs/review-queue.png)](https://github.com/suhao1314/web-product-delivery/releases/download/v0.4.0/review-queue.html)
+
+## 试试页面上的动效
+
+下载 [16 个动效的离线样例](https://github.com/suhao1314/web-product-delivery/releases/download/v0.4.0/motion-lab.html)，用浏览器打开即可。移动鼠标看聚光和 3D 倾斜，触发边缘流光，再上下滚动试滚动叙事。包内图谱逐项写了适用页面、触发方式、移动端表现和验收动作。[动效图谱](references/motion-patterns.md) · [开发与验收](references/motion.md)
 
 ## 遇到其他问题
 
@@ -61,4 +80,4 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 | 想加搜索、草稿或新手引导 | 先让目标用户找一门课或恢复一次输入，再决定是否值得增加依赖。[功能取舍](references/feature-tools.md) |
 | 两版截图一样，表单却用不了 | 按控件名称、键盘焦点与真实点击检查失败步骤。[按现象选验收方法](references/verification-tools.md) |
 
-两份演示均可在本机浏览器运行，无需账号或安装 Node.js。贡献反馈时，请写出设备、步骤和期望结果，示例数据请用虚构记录。原创技能和离线演示采用 MIT 许可。官网截图用于案例讲解，其中的品牌标识与第三方素材保留各自权利。[许可证](LICENSE) · [研究来源](references/sources.md)
+三份演示均可在本机浏览器运行，无需账号或安装 Node.js。贡献反馈时，请写出设备、步骤和期望结果，示例数据请用虚构记录。原创技能和离线演示采用 MIT 许可。官网截图用于案例讲解，其中的品牌标识与第三方素材保留各自权利。[许可证](LICENSE) · [研究来源](references/sources.md)

@@ -46,3 +46,5 @@
 GOV.UK 的展开详情、核对答案与错误摘要用于选择显示内容和修改入口。Carbon 的表格、空状态指南用于结果组织。W3C 的目标尺寸与焦点要求用于检查固定栏和窄屏。Baymard 结账研究提示减少无关字段，迁移到咨询或后台时按当前任务所需信息验证。[任务排版的做法与各原文](ui-design-practice.md#按任务排版和补齐状态) · [Baymard 表单研究](https://baymard.com/research-articles/checkout-flow-average-form-fields)
 
 浏览器标签页的客户确认、制作和发布实测，参考 MDN 的页面标题、图标链接与 Google 搜索标题说明。项目主路径走查增加从首页到一个内页的标签回读。[标签页图标、标题与出处](site-identity.md)
+
+借鉴自有微信小程序技能的分轮访谈、已确认阶段续接、高保真 UI 实物、版本更新范围与分层验收。网页端改用桌面和手机布局、浏览器深链接、真实表单或后台读写与预览发布。整合后的做法随本站点技能独立提供。[网站从讨论到交付](project-workflow.md) · [微信小程序分阶段做法](https://github.com/suhao1314/wechat-miniprogram-skills/tree/main/skills/launch-wechat-miniprogram)

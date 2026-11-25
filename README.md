@@ -2,7 +2,7 @@
 
 **一个带你从零建站、设计 UI，也能优化已有官网和管理后台的 AI Skill。** 只有想法，就从问需求开始。已有网站、设计稿或源码，就从卡住的地方接着做。
 
-[官网 UI 设计实例](#桂小递官网设计实例) · [从零做网站](#从零做网站) · [评审或改版](#评审或改版已有网站) · [优化已有后台](#优化已有后台) · [16 个动效](#试试页面上的动效) · [下载完整技能](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip) · [English](README.en.md)
+[一句话启动](#一句话启动) · [八种网页版式](references/layout-patterns.md) · [官网 UI 设计实例](#桂小递官网设计实例) · [从零做网站](#从零做网站) · [评审或改版](#评审或改版已有网站) · [优化已有后台](#优化已有后台) · [16 个动效](#试试页面上的动效) · [下载完整技能](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip) · [English](README.en.md)
 
 ## 直接安装这一个 Skill
 
@@ -13,6 +13,12 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 ```
 
 也可以下载[同一个 Skill 的 ZIP](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip)，解压后把 `web-product-delivery` 文件夹放进助手的技能目录，再重新打开项目。流程、实操指南和练习都在这一个文件夹里。支持读取本机文件的其他助手，也可以直接从包内的 [SKILL.md](SKILL.md) 开始。按你的目标挑下面一段示例发给 AI 即可。
+
+## 一句话启动
+
+> 用 $web-product-delivery 帮我做网站或改版。根据我给的资料和项目主动找参考、选版式、给一个首选，只问会改变方向的事。新建或整体改版先给我看桌面和手机 UI 稿，确认后再定开发方案。
+
+贴上想法、现有网址或项目资料即可开始。AI 会按访客要做的事，参考真实网站选出同类排法。服务官网、单品页、案例目录、方案对比、教程、表单、工作台和滚动叙事各有适合的构图和手机重排办法。[八种版式和一手案例](references/layout-patterns.md) · [从哪一步接着做](references/project-workflow.md#一句话启动网站任务)
 
 ## 可以直接这么说
 
@@ -44,7 +50,7 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 > 用 $web-product-delivery 带我做第一个网站。我给校园社团拍活动，希望负责人看完作品，带着活动时间和拍摄需求来找我。这周先在自己电脑上试。帮我做出作品页和咨询页，让我亲手改一次标题，再走通一次咨询。
 
 1. **先讨论业务。** AI 每轮问 1–3 个会改变方案的问题。一起确认谁来、看什么、怎么联系，以及首版要验成什么样。
-2. **先看 UI 稿。** 用真实内容排桌面和手机，画出首页、内页和关键状态。审图时一起看标签图标与标题，确认后补素材。[网站图标与标题](references/site-identity.md)
+2. **先看 UI 稿。** 用真实内容选版式，排桌面和手机，画出首页、内页和关键状态。说明为什么选这一版。审图时一起看标签图标与标题，确认后补素材。[网站图标与标题](references/site-identity.md)
 3. **再定开发方案。** 用白话讲页面怎么接、需求交给谁、要不要存数据、哪一步先做和怎么验。按确认或已委托的范围动手。
 4. **开发后一起走一遍。** 访客从作品到咨询，遇到失败也能继续。新手可在包内打开 `assets/site-starter/index.html` 试填和修改摘要。需要上线时从预览到正式地址分别验收。[四步带做](references/project-workflow.md) · [首站练习](references/build-your-first-site.md) · [首次发布](references/first-launch.md)
 

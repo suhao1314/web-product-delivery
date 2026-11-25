@@ -2,7 +2,7 @@
 
 **One AI skill for website building, UI design, and improving existing websites or dashboards.** Start with an idea, URL, mockup, or codebase. The skill asks focused questions and works from your current stage. The guides and demos are in Chinese.
 
-[Design in practice](#design-in-practice) · [Build your first website](#build-your-first-website) · [Review or redesign a site](#review-or-redesign-a-site) · [Improve an admin app](#improve-an-existing-admin-app) · [Try 16 motion effects](#try-16-motion-effects) · [Download the skill](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip) · [中文](README.md)
+[Start with one request](#start-with-one-request) · [Eight layout patterns](references/layout-patterns.md) · [Design in practice](#design-in-practice) · [Build your first website](#build-your-first-website) · [Review or redesign a site](#review-or-redesign-a-site) · [Improve an admin app](#improve-an-existing-admin-app) · [Try 16 motion effects](#try-16-motion-effects) · [Download the skill](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip) · [中文](README.md)
 
 ## Install this skill
 
@@ -13,6 +13,12 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 ```
 
 The [ZIP download](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip) contains the same skill and its built-in examples. Extract `web-product-delivery` into your assistant's skill directory and reopen the project. A file-aware assistant can also read [SKILL.md](SKILL.md) directly.
+
+## Start with one request
+
+> Use $web-product-delivery to build or improve my website. Review the material I provide, find relevant references, and recommend a layout. Ask about decisions that change the plan. For a new site or major redesign, show desktop and phone mockups before planning development.
+
+An idea, URL, or existing project is enough to start. The bundled guide links real examples for service homepages, product pages, catalogs, comparisons, articles, forms, workspaces, and scroll-driven stories. It also shows how to rearrange each layout for a phone. [Eight layout patterns](references/layout-patterns.md) · [Project workflow](references/project-workflow.md)
 
 ## Start with what you have
 
@@ -41,7 +47,7 @@ At a 390-pixel browser width we followed the product detail link, checked both p
 > Use $web-product-delivery to help me build my first site. I photograph campus events and want organizers to see my work and ask about a shoot with their date and requirements. Let's try it locally this week. Help me build a portfolio and an inquiry page, edit the headline myself, and complete one inquiry.
 
 1. Discuss who will use the site, what they need to do, and how you will verify the first version. The assistant asks you what is still open.
-2. Review desktop and phone UI mockups with real content and key states. Agree on a new favicon before it is made and let the assistant propose page titles. [Browser tab guide](references/site-identity.md)
+2. Review desktop and phone UI mockups with real content and key states. Ask why the recommended layout fits the visitor's task. Agree on a new favicon before it is made and let the assistant propose page titles. [Browser tab guide](references/site-identity.md)
 3. Confirm the development plan or delegate the technical choices within the agreed scope. It explains page connections, how data is handled, and what will be tested.
 4. Build and verify the first working path. For practice, open `assets/site-starter/index.html` inside the skill folder. Follow the featured project to the inquiry page and generate an editable brief. Check the preview, public URL, and recovery steps when you are ready to publish. [Four-step workflow](references/project-workflow.md) · [First-site practice](references/build-your-first-site.md) · [First launch](references/first-launch.md)
 

@@ -1,6 +1,6 @@
 interface:
   display_name: "网站搭建与改版"
   short_description: "从零搭网站、做 UI 和开发方案，也能评审、改版和优化已有官网或后台"
-  default_prompt: "用 $web-product-delivery 接手我的网站。帮我问清需求，按目前的进度出 UI 稿、定开发方案或复现并优化旧站。"
+  default_prompt: "用 $web-product-delivery 帮我做网站或改版。看我给的资料，主动找参考、选版式并给首选。只问会改变方向的事，新建或整体改版先给我看桌面和手机 UI 稿，确认后再定开发方案。"
 policy:
   allow_implicit_invocation: true

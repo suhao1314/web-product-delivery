@@ -16,15 +16,15 @@ The [ZIP download](https://github.com/suhao1314/web-product-delivery/releases/la
 
 ## Start with one request
 
-> Use $web-product-delivery to build or improve my website. Review the material I provide, find relevant references, and recommend a layout. Ask about decisions that change the plan. For a new site or major redesign, show desktop and phone mockups before planning development.
+> Use $web-product-delivery for my website. Ask me to confirm the requirements first. Deliver a desktop PNG/JPG and a mobile PNG/JPG UI image. After I approve both, present the development plan. Begin only after I explicitly approve that plan.
 
-An idea, URL, or existing project is enough to start. The bundled guide links real examples for service homepages, product pages, catalogs, comparisons, articles, forms, workspaces, and scroll-driven stories. It also shows how to rearrange each layout for a phone. [Eight layout patterns](references/layout-patterns.md) · [Project workflow](references/project-workflow.md)
+Every new task begins with questions and requirements confirmation. Any website change, including a small fix, requires the desktop and phone UI images and then an explicitly approved implementation plan. The bundled guide covers [eight layout patterns](references/layout-patterns.md) and the [ordered workflow](references/project-workflow.md#网站开发四步).
 
 ## Start with what you have
 
-- **An idea.** “Build a portfolio for my campus photography business and show me how a visitor would ask about a shoot.” Answer one to three questions per round. Confirm the scope, review desktop and phone mockups, then check the development plan.
-- **A URL or screenshot.** “Find the step that makes it hard to ask about a product on a phone.” Get the location, impact, proposed change, and a way to check it.
-- **An existing site or mockup.** “Keep the approved design and wire up the inquiry button,” or “Fix the admin list so a reviewer returns to the same record.” Get a working result and the steps used to verify it.
+- **An idea.** Confirm the scope after questions, approve both desktop and mobile PNG/JPG design images, then explicitly approve the development plan.
+- **A URL or screenshot.** Clarify which scenario to review and what result the user expects. Inspect and report within that scope.
+- **An existing site or mockup.** Ask about the current task. Any actual edit still goes through UI image review and specific plan approval.
 
 An assistant that discovers skills can use these requests directly. To invoke it explicitly, start with `$web-product-delivery`. [Skill entry point](SKILL.md)
 
@@ -47,22 +47,22 @@ At a 390-pixel browser width we followed the product detail link, checked both p
 > Use $web-product-delivery to help me build my first site. I photograph campus events and want organizers to see my work and ask about a shoot with their date and requirements. Let's try it locally this week. Help me build a portfolio and an inquiry page, edit the headline myself, and complete one inquiry.
 
 1. Discuss who will use the site, what they need to do, and how you will verify the first version. The assistant asks you what is still open.
-2. Review desktop and phone UI mockups with real content and key states. Ask why the recommended layout fits the visitor's task. Agree on a new favicon before it is made and let the assistant propose page titles. [Browser tab guide](references/site-identity.md)
-3. Confirm the development plan or delegate the technical choices within the agreed scope. It explains page connections, how data is handled, and what will be tested.
-4. Build and verify the first working path. For practice, open `assets/site-starter/index.html` inside the skill folder. Follow the featured project to the inquiry page and generate an editable brief. Check the preview, public URL, and recovery steps when you are ready to publish. [Four-step workflow](references/project-workflow.md) · [First-site practice](references/build-your-first-site.md) · [First launch](references/first-launch.md)
+2. Review and approve actual desktop and mobile PNG/JPG UI images with real content and key states. [Browser tab guide](references/site-identity.md)
+3. After approving both images, read and explicitly approve the specific development plan. It explains page connections, how data is handled, and what will be tested.
+4. Begin development after plan approval. For practice, open the bundled starter. [Four-step workflow](references/project-workflow.md#网站开发四步) · [First-site practice](references/build-your-first-site.md) · [First launch](references/first-launch.md)
 
 [![The portfolio home page in the two-page exercise](docs/first-site.png)](assets/site-starter/index.html)
 
 ## Review or redesign a site
 
-Start at the original entry point and follow one real task. “I read a course description but have to select the course again when I inquire” calls for a journey from the directory to the form. With a redesign, record the existing links, fields, responses and permissions. Review desktop and phone mockups and a development plan before a major redesign. For a small fix, reuse the existing interface and compare the same entry point, data, role, and viewport before and after. [User journey review](references/journey.md) · [Layout and UI states](references/ui-design-practice.md#按任务排版和补齐状态) · [Redesign checks](references/visual-direction-and-change-control.md)
+Ask about the user's issue, confirm the scope, and then follow the original path. Any change needs both UI design images and the later development plan approved. A small fix can annotate the affected states on the existing desktop and mobile interface. Compare the same entry point, data, role, and viewport after implementing the approved plan. [User journey review](references/journey.md) · [Redesign checks](references/visual-direction-and-change-control.md)
 
 ## Improve an existing admin app
 
-> Use $web-product-delivery on this admin app. On a phone, reviewers select a campus, open a merchant application, and lose their place when they return. Reproduce it locally with test records, fix it in the existing components, and show the same actions before and after.
+> Use $web-product-delivery on this admin app. On a phone, the campus filter disappears when a reviewer closes a merchant application. Ask what should remain, then show desktop and mobile PNG/JPG designs. Present a plan after image approval and wait for my plan approval before making changes.
 
 1. Open the maintained project and identify the usual entry point, reviewer role, and failing step. Repeat the task with a fixed viewport and filters.
-2. Restore the selected campus and focus when the reviewer returns. Check that switching campus clears the previous selection. Use separate test records to verify scope. [Admin workflows](references/admin.md) · [Drafts and recovery](references/convenience.md)
+2. After both image and plan approvals, restore the selected campus and focus. Check that switching campus clears the previous selection. Use separate test records to verify scope. [Admin workflows](references/admin.md) · [Drafts and recovery](references/convenience.md)
 3. Open the bundled [offline review demo](examples/review-queue.html) in your local browser. Select 松林校区, open a record, and choose 返回申请列表（取消） to return. Check the active filter and focused record. Reopen a record and confirm a decision to continue reviewing. The demo uses fictional records and resets on refresh. Validate authorization and persistence separately in the actual application's test environment. [Ownership and exceptions](references/admin-ownership.md) · [Journey review](references/journey.md)
 
 [![A phone-sized merchant review queue with campus filters](docs/review-queue.png)](examples/review-queue.html)
@@ -73,7 +73,7 @@ Open the bundled [motion lab](assets/motion-lab/index.html) in a browser. Try sp
 
 ## Other tasks
 
-For a WeChat mini program with a companion website, describe the job once. With both first-party skills available, the native registration flow stays with the mini-program skill, and this skill handles browser-based review. Verify both ends with the same fictional application. A database-only request stays in the native project. If staff training is part of delivery, capture the verified steps for the video. [Cross-platform handoff](references/companion-workflow.md)
+For a WeChat mini program with a companion website, confirm which tasks belong in the browser. Use this workflow for website work and coordinate the result with the approved team or process for the native side. [Cross-platform handoff](references/companion-workflow.md)
 
 For a new site, choose a composition with real content. For an existing page, rank issues by their effect on the visitor and tune layout, motion or density independently. Develop unclear business rules through one observable user journey and check sensitive results at the service boundary. [Design decisions](references/visual-direction-and-change-control.md) · [Requirements and verification](references/feature-workflow.md)
 

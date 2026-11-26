@@ -101,9 +101,8 @@ async function measureRun(browser, options) {
     hasTouch: options.touch
   });
   const page = await context.newPage();
-  const consoleErrors = [];
-  page.on('pageerror', error => consoleErrors.push(error.name || 'pageerror'));
-  let navigationError = null;
+  let pageErrors = 0;
+  page.on('pageerror', () => { pageErrors += 1; });
   try {
     const throttle = options.latencyMs > 0 || options.downloadKbps > 0 || options.uploadKbps > 0;
     try {
@@ -132,8 +131,8 @@ async function measureRun(browser, options) {
     });
     const response = await page.goto(options.url, { waitUntil: 'domcontentloaded', timeout: 60000 });
     const httpStatus = response ? response.status() : null;
-    if (httpStatus === null || httpStatus >= 400) {
-      return { success: false, httpStatus, fcpMs: null, lcpMs: null, lcpStatus: 'missing', ttfbMs: null, navigationStatus: httpStatus === null ? 'missing_response' : 'http_error', resourceCount: null, transferBytes: null, decodedBytes: null, pageErrors: consoleErrors.length };
+    if (httpStatus === null || httpStatus < 200 || httpStatus >= 300) {
+      return { success: false, httpStatus, fcpMs: null, lcpMs: null, lcpStatus: 'missing', ttfbMs: null, navigationStatus: httpStatus === null ? 'missing_response' : 'http_error', resourceCount: null, transferBytes: null, decodedBytes: null, pageErrors };
     }
     await page.waitForTimeout(options.observeMs);
     const observation = await page.evaluate(httpStatus => {
@@ -156,11 +155,11 @@ async function measureRun(browser, options) {
         pageErrors: null
       };
     }, httpStatus);
-    observation.pageErrors = consoleErrors.length;
+    observation.pageErrors = pageErrors;
     return observation;
   } catch (error) {
-    navigationError = error.name || 'navigation_error';
-    return { success: false, httpStatus: null, fcpMs: null, lcpMs: null, lcpStatus: 'missing', ttfbMs: null, navigationStatus: navigationError, resourceCount: null, transferBytes: null, decodedBytes: null, pageErrors: 1 };
+    const navigationError = error.name || 'navigation_error';
+    return { success: false, httpStatus: null, fcpMs: null, lcpMs: null, lcpStatus: 'missing', ttfbMs: null, navigationStatus: navigationError, resourceCount: null, transferBytes: null, decodedBytes: null, pageErrors };
   } finally {
     await context.close();
   }
@@ -211,7 +210,7 @@ async function main() {
       successfulSamples: successful.length,
       notes: [
         'Each sample uses a new browser context.',
-        'Only HTTP-success samples contribute to medians.',
+        'Only completed samples with a final HTTP 2xx response contribute to medians.',
         'Cold-cache disables browser cache for the sample. New contexts also start without cookies and local storage.',
         'Network conditions use Chromium laboratory emulation. Download and upload limits can be set separately in decimal kilobits per second.',
         'FCP and LCP start at navigation start. The script waits for DOMContentLoaded, then observes for observeMs, so late LCP candidates can be collected within that window.',
@@ -224,6 +223,7 @@ async function main() {
       fs.writeFileSync(options.output, serialized, { encoding: 'utf8', mode: 0o600, flag: 'wx' });
     }
     process.stdout.write(serialized);
+    if (!successful.length) process.exitCode = 1;
   } finally { await browser.close(); }
 }
 

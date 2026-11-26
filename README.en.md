@@ -14,6 +14,18 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 
 The [ZIP download](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip) contains the same skill and its built-in examples. Extract `web-product-delivery` into your assistant's skill directory and reopen the project. A file-aware assistant can also read [SKILL.md](SKILL.md) directly.
 
+### Update an existing installation
+
+For a Git checkout, run the first two commands from the same project root. Run the third after confirming the remote is this repository and the working tree is clean.
+
+```sh
+git -C .agents/skills/web-product-delivery remote get-url origin
+git -C .agents/skills/web-product-delivery status --short
+git -C .agents/skills/web-product-delivery pull --ff-only
+```
+
+Back up local edits and review changes before updating. For a ZIP install, unpack the new copy outside the skills directory, save a backup of the old copy, replace the installed folder with the complete new folder, and reopen the project.
+
 ## Start with one request
 
 > Use $web-product-delivery for my website. Ask me to confirm the requirements first. Deliver a desktop PNG/JPG and a mobile PNG/JPG UI image. After I approve both, present the development plan. Begin only after I explicitly approve that plan.
@@ -49,7 +61,7 @@ At a 390-pixel browser width we followed the product detail link, checked both p
 1. Discuss who will use the site, what they need to do, and how you will verify the first version. The assistant asks you what is still open.
 2. Review and approve actual desktop and mobile PNG/JPG UI images with real content and key states. [Browser tab guide](references/site-identity.md)
 3. After approving both images, read and explicitly approve the specific development plan. It explains page connections, how data is handled, and what will be tested.
-4. Begin development after plan approval. For practice, open the bundled starter. [Four-step workflow](references/project-workflow.md#网站开发四步) · [First-site practice](references/build-your-first-site.md) · [First launch](references/first-launch.md)
+4. Begin development after plan approval. For practice, open the bundled starter. [Four-step workflow](references/project-workflow.md#网站开发四步) · [Resume from recorded approvals](references/project-workflow.md#跨对话怎么接着做) · [First-site practice](references/build-your-first-site.md) · [First launch](references/first-launch.md)
 
 [![The portfolio home page in the two-page exercise](docs/first-site.png)](assets/site-starter/index.html)
 
@@ -63,7 +75,9 @@ Ask about the user's issue, confirm the scope, and then follow the original path
 
 1. Open the maintained project and identify the usual entry point, reviewer role, and failing step. Repeat the task with a fixed viewport and filters.
 2. After both image and plan approvals, restore the selected campus and focus. Check that switching campus clears the previous selection. Use separate test records to verify scope. [Admin workflows](references/admin.md) · [Drafts and recovery](references/convenience.md)
-3. Open the bundled [offline review demo](examples/review-queue.html) in your local browser. Select 松林校区, open a record, and choose 返回申请列表（取消） to return. Check the active filter and focused record. Reopen a record and confirm a decision to continue reviewing. The demo uses fictional records and resets on refresh. Validate authorization and persistence separately in the actual application's test environment. [Ownership and exceptions](references/admin-ownership.md) · [Journey review](references/journey.md)
+3. In the actual application's authorized test environment, repeat the same path from campus selection to the next application. Verify the active filter, focus, permission checks, and saved decision. [Ownership and exceptions](references/admin-ownership.md) · [Journey review](references/journey.md)
+
+To practise with fictional records, open the bundled [offline review demo](examples/review-queue.html). Select 松林校区, open a record, and choose 返回申请列表（取消） to return. Check the active filter and focused record. Confirm a decision and see which record opens next. Refresh to start again.
 
 [![A phone-sized merchant review queue with campus filters](docs/review-queue.png)](examples/review-queue.html)
 

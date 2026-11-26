@@ -14,6 +14,18 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 
 也可以下载[同一个 Skill 的 ZIP](https://github.com/suhao1314/web-product-delivery/releases/latest/download/web-product-delivery.zip)，解压后把 `web-product-delivery` 文件夹放进助手的技能目录，再重新打开项目。流程、实操指南和练习都在这一个文件夹里。支持读取本机文件的其他助手，也可以直接从包内的 [SKILL.md](SKILL.md) 开始。按你的目标挑下面一段示例发给 AI 即可。
 
+### 更新已安装的版本
+
+用 Git 安装过的，在同一项目目录运行前两行。确认来源是本仓库且状态为空，再运行第三行。
+
+```sh
+git -C .agents/skills/web-product-delivery remote get-url origin
+git -C .agents/skills/web-product-delivery status --short
+git -C .agents/skills/web-product-delivery pull --ff-only
+```
+
+有自己的修改时，先备份并查看新旧版本差异。用 ZIP 安装的，先解压新版到技能目录外，保留旧版备份，再用新版完整目录替换当前安装，最后重新打开项目。
+
 ## 一句话启动
 
 > 用 $web-product-delivery 帮我做网站。先向我提问并确认需求，再交电脑端和手机端各一张 PNG/JPG UI 设计图。两张图我确认后再出开发方案。我确认这份方案后，才开始做。
@@ -52,7 +64,7 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 1. **先问清需求。** AI 每轮向用户问关键问题，再复述这次要做什么，请用户明确确认范围。
 2. **再看两端 UI 图片。** 交真实的电脑端与手机端 PNG/JPG 图，画出主要内容和关键状态。两套图片由用户确认。[网站图标与标题](references/site-identity.md)
 3. **图片通过后出开发方案。** 讲清功能怎么接、数据去哪、开发范围和验收办法。等用户看过具体方案后明确同意。
-4. **方案通过再做。** 开发后一起从作品走到咨询。包内有可直接打开的练习样站。[四步带做](references/project-workflow.md#网站开发四步) · [首站练习](references/build-your-first-site.md) · [首次发布](references/first-launch.md)
+4. **方案通过再做。** 开发后一起从作品走到咨询。包内有可直接打开的练习样站。[四步带做](references/project-workflow.md#网站开发四步) · [确认记录和续做](references/project-workflow.md#跨对话怎么接着做) · [首站练习](references/build-your-first-site.md) · [首次发布](references/first-launch.md)
 
 [![教学样站首页，访客可以从作品进入咨询](docs/first-site.png)](assets/site-starter/index.html)
 
@@ -66,7 +78,9 @@ git clone https://github.com/suhao1314/web-product-delivery.git .agents/skills/w
 
 1. **问清范围并复现。** 用户确认范围后，从同一角色、筛选条件和手机宽度复走一次，找出丢的是校区、位置还是最近看的申请。
 2. **先审图和方案，再改。** 两端图标出要保留的本校条件和返回位置。方案里说明切换校区时清除上一校区的选择。确认方案后修复并用隔离测试记录验收。[审核队列与数据范围](references/admin.md) · [草稿与恢复](references/convenience.md)
-3. **亲手验效果。** 安装后，在本机浏览器打开[手机审核演示](examples/review-queue.html)，选“松林校区”，打开一条申请再点“返回申请列表（取消）”，看筛选和焦点落在哪里。再次打开、作出决定，观察下一条待办。这个示例使用虚构数据，刷新即可重试。真实项目的权限和写入结果在对应测试环境单独验证。[首管与人工处置](references/admin-ownership.md) · [按用户任务走查](references/journey.md)
+3. **验改后的后台。** 在实际项目的授权测试环境，按原路径选校区、打开申请、返回并继续审下一条。检查当前校区、列表焦点、权限和处理结果。[首管与人工处置](references/admin-ownership.md) · [按用户任务走查](references/journey.md)
+
+想先练一次，可以打开包内的[手机审核演示](examples/review-queue.html)。选“松林校区”，打开申请，点“返回申请列表（取消）”看筛选和焦点，再处理一条，观察接到哪条。练习用虚构记录，刷新可重试。
 
 [![离线审核队列，展示校区筛选、申请详情和返回位置](docs/review-queue.png)](examples/review-queue.html)
 
